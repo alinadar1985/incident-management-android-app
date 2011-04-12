@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IMSORMModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="IMSORMModelStoreContainer">
+    <EntitySet Name="OnSiteOperators" EntityType="IMSORMModel.Store.OnSiteOperators" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Reports" EntityType="IMSORMModel.Store.Reports" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="OnSiteOperatorReport" Association="IMSORMModel.Store.OnSiteOperatorReport">
+      <End Role="OnSiteOperator" EntitySet="OnSiteOperators" />
+      <End Role="Report" EntitySet="Reports" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="OnSiteOperators">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reports">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OperatorID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreateDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="OnSiteOperatorReport">
+    <End Role="OnSiteOperator" Type="IMSORMModel.Store.OnSiteOperators" Multiplicity="1" />
+    <End Role="Report" Type="IMSORMModel.Store.Reports" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="OnSiteOperator">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Report">
+        <PropertyRef Name="OperatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="IMSORMModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityContainer Name="IMSORMModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OnSiteOperators" EntityType="IMSORMModel.OnSiteOperator" />
+          <EntitySet Name="Reports" EntityType="IMSORMModel.Report" />
+          <AssociationSet Name="OnSiteOperatorReport" Association="IMSORMModel.OnSiteOperatorReport">
+            <End Role="OnSiteOperator" EntitySet="OnSiteOperators" />
+            <End Role="Report" EntitySet="Reports" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OnSiteOperator">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Reports" Relationship="IMSORMModel.OnSiteOperatorReport" FromRole="OnSiteOperator" ToRole="Report" />
+          <Property Type="String" Name="Name" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Type="Guid" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="OperatorID" Nullable="false" />
+          <NavigationProperty Name="OnSiteOperator" Relationship="IMSORMModel.OnSiteOperatorReport" FromRole="Report" ToRole="OnSiteOperator" />
+          <Property Type="String" Name="Text" Nullable="false" />
+          <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+        </EntityType>
+        <Association Name="OnSiteOperatorReport">
+          <End Type="IMSORMModel.OnSiteOperator" Role="OnSiteOperator" Multiplicity="1" />
+          <End Type="IMSORMModel.Report" Role="Report" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnSiteOperator">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Report">
+              <PropertyRef Name="OperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="IMSORMModelStoreContainer" CdmEntityContainer="IMSORMModelContainer">
+    <EntitySetMapping Name="OnSiteOperators">
+      <EntityTypeMapping TypeName="IsTypeOf(IMSORMModel.OnSiteOperator)">
+        <MappingFragment StoreEntitySet="OnSiteOperators">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reports">
+      <EntityTypeMapping TypeName="IsTypeOf(IMSORMModel.Report)">
+        <MappingFragment StoreEntitySet="Reports">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="IMSORModel" >
+        <EntityTypeShape EntityType="IMSORMModel.OnSiteOperator" Width="1.5" PointX="1.5" PointY="1" Height="1.59568359375" />
+        <EntityTypeShape EntityType="IMSORMModel.Report" Width="1.5" PointX="4.375" PointY="1.125" Height="1.9802864583333339" />
+        <AssociationConnector Association="IMSORMModel.OnSiteOperatorReport">
+          <ConnectorPoint PointX="3" PointY="1.860341796875" />
+          <ConnectorPoint PointX="4.375" PointY="1.860341796875" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
