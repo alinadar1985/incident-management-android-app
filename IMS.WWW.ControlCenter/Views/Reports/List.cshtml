@@ -1,0 +1,46 @@
+﻿@model IEnumerable<IMS.DataAccess.Report>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th></th>
+        <th>
+            OperatorID
+        </th>
+        <th>
+            Text
+        </th>
+        <th>
+            CreateDate
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+        <td>
+            @item.OnSiteOperator.Name
+        </td>
+        <td>
+            @item.Text
+        </td>
+        <td>
+            @String.Format("{0:g}", item.CreateDate)
+        </td>
+    </tr>
+}
+
+</table>
+

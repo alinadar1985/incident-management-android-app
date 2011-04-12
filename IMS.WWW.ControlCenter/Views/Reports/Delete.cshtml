@@ -1,0 +1,30 @@
+﻿@model IMS.DataAccess.Report
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<fieldset>
+    <legend>Report</legend>
+
+    <div class="display-label">Operator</div>
+    <div class="display-field">@Model.OnSiteOperator.Name</div>
+
+    <div class="display-label">Text</div>
+    <div class="display-field">@Model.Text</div>
+
+    <div class="display-label">CreateDate</div>
+    <div class="display-field">@String.Format("{0:g}", Model.CreateDate)</div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.HiddenFor(model => model.ID)
+    <p>
+        <input type="submit" value="Delete" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+}
+
+
