@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+<TextView
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content" 
+	android:text="@string/report_txt_label" 
+	android:textStyle="bold"
+	android:textSize="10pt"
+	/>
+<EditText 
+	android:text="" 
+	android:id="@+id/editTextIncidentDescription" 
+	android:layout_width="match_parent" 
+	android:layout_height="fill_parent"
+	android:layout_weight="1"
+	/>
+<Button 
+	android:text="@string/report_btn_submit" 
+	android:id="@+id/reportSubmitButton" 
+	android:layout_width="match_parent" 
+	android:layout_height="fill_parent"
+	android:layout_weight="3"
+	/>
+	
+</LinearLayout>

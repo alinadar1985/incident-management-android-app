@@ -2,3 +2,4 @@ glob:bin/*
 glob:obj/*
 glob:*.suo
 glob:Dependencies/*
+glob:AndroidApp/.metadata/*
