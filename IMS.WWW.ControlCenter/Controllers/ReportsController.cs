@@ -14,6 +14,7 @@ namespace IMS.WWW.ControlCenter.Controllers
 		private IMSORMModelContainer _context = new IMSORMModelContainer();
 		public ReportsController()
 		{
+			// Hack für leichteres Deployment
 			if (!_context.DatabaseExists())
 				_context.CreateDatabase();
 		}
@@ -23,6 +24,10 @@ namespace IMS.WWW.ControlCenter.Controllers
 			return _context.Reports.First(r => r.ID == id);
 		}
 
+		/// <summary>
+		/// Gibt eine SelectList aller vorhandenen Operators zurück.
+		/// </summary>
+		/// <returns></returns>
 		private IEnumerable<SelectListItem> GetOperatorList()
 		{
 			return from op in _context.OnSiteOperators.ToList()
@@ -32,7 +37,12 @@ namespace IMS.WWW.ControlCenter.Controllers
 					   Selected = false
 				   };
 		}
-
+		/// <summary>
+		/// Gibt eine SelectList für alle vorhandenen Operators zurück. Der Operator mit 
+		/// der übergebenen operatorID ist der default Wert, d.h. wenn ich die ID von "Hans"
+		/// übergebe, erscheint in der entsprechenden DropDownList "Hans" als Vorauswahl.
+		/// </summary>
+		/// <param name="operatorID">Die id des Operators der als Vorauswahl gewünscht ist</param>
 		private IEnumerable<SelectListItem> GetPreselectedOperatorList(Guid operatorID)
 		{
 			return from op in _context.OnSiteOperators.ToList()
@@ -90,7 +100,7 @@ namespace IMS.WWW.ControlCenter.Controllers
         
         //
         // GET: /Reports/Edit/5
- 
+		
         public ActionResult Edit(Guid id)
         {
 			var report = GetReportById(id);
