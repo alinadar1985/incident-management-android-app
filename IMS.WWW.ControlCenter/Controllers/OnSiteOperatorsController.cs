@@ -14,6 +14,13 @@ namespace IMS.WWW.ControlCenter.Controllers
 			if (!_context.DatabaseExists())
 				_context.CreateDatabase();
 		}
+
+		private OnSiteOperator GetOperatorByID(Guid id)
+		{
+			return _context.OnSiteOperators.First(op => op.ID == id);
+		}
+
+
         //
         // GET: /OnSiteOperators/
 
@@ -29,7 +36,7 @@ namespace IMS.WWW.ControlCenter.Controllers
 
         public ActionResult Details(Guid id)
         {
-			var osOperator = _context.OnSiteOperators.First(op => op.ID == id);
+			var osOperator = GetOperatorByID(id);
 			ViewData.Model = osOperator;
 			return View();
         }
@@ -66,7 +73,7 @@ namespace IMS.WWW.ControlCenter.Controllers
  
         public ActionResult Edit(Guid id)
         {
-			var osOperator = _context.OnSiteOperators.First(op => op.ID == id);
+			var osOperator = GetOperatorByID(id);
 			ViewData.Model = osOperator;
             return View();
         }
@@ -79,8 +86,7 @@ namespace IMS.WWW.ControlCenter.Controllers
         {
             try
             {
-				var old =
-					_context.OnSiteOperators.First(op => op.ID == osOperator.ID);
+				var old = GetOperatorByID(id);
 				old.Name = osOperator.Name;
 				_context.SaveChanges();
                 return RedirectToAction("Index");
@@ -95,7 +101,7 @@ namespace IMS.WWW.ControlCenter.Controllers
         // GET: /OnSiteOperators/Delete/5
         public ActionResult Delete(Guid id)
         {
-			var osOperator = _context.OnSiteOperators.First(op => op.ID == id);
+			var osOperator = GetOperatorByID(id);
 			ViewData.Model = osOperator;
             return View();
         }
@@ -104,7 +110,7 @@ namespace IMS.WWW.ControlCenter.Controllers
         // POST: /OnSiteOperators/Delete/5
 
         [HttpPost]
-        public ActionResult Delete(int id, OnSiteOperator osOperator)
+        public ActionResult Delete(Guid id, OnSiteOperator osOperator)
         {
             try
             {
