@@ -94,7 +94,7 @@ namespace IMS.WWW.ControlCenter.Controllers
             }
             catch
             {
-                return View();
+				return Content("Something went wrong");
             }
         }
         
@@ -126,7 +126,7 @@ namespace IMS.WWW.ControlCenter.Controllers
             }
             catch
             {
-                return View();
+				return Content("Something went wrong");
             }
         }
 
@@ -154,7 +154,7 @@ namespace IMS.WWW.ControlCenter.Controllers
             }
             catch
             {
-                return View();
+				return Content("Something went wrong");
             }
         }
     }
