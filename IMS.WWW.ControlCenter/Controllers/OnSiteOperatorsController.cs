@@ -110,12 +110,12 @@ namespace IMS.WWW.ControlCenter.Controllers
         // POST: /OnSiteOperators/Delete/5
 
         [HttpPost]
-        public ActionResult Delete(Guid id, OnSiteOperator osOperator)
+        public ActionResult Delete(OnSiteOperator osOperator)
         {
             try
             {
                 // TODO: Add delete logic here
-				_context.OnSiteOperators.DeleteObject(osOperator);
+				_context.OnSiteOperators.DeleteObject(GetOperatorByID(osOperator.ID));
 				_context.SaveChanges();
                 return RedirectToAction("Index");
             }
