@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<IMS.DataAccess.Report>
 @using IMS.WWW.ControlCenter.Models;
+@using ReportSortCriterium = IMS.DataAccess.ReportSortCriterium;
 @{
     ViewBag.Title = "List";
     var sortBy = (ReportSortCriterium)ViewBag.SortBy;
