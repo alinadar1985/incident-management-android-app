@@ -6,8 +6,8 @@ using System.Web.Mvc;
 using IMS.DataAccess;
 namespace IMS.WWW.ControlCenter.Controllers
 {
-    public class OnSiteOperatorsController : Controller
-    {
+	public class OnSiteOperatorsController : Controller
+	{
 		private IMSORMModelContainer _context = new IMSORMModelContainer();
 		public OnSiteOperatorsController()
 		{
@@ -21,108 +21,99 @@ namespace IMS.WWW.ControlCenter.Controllers
 		}
 
 
-        //
-        // GET: /OnSiteOperators/
+		//
+		// GET: /OnSiteOperators/
 
-        public ActionResult Index()
-        {
+		public ActionResult Index()
+		{
 			var osOperators = _context.OnSiteOperators.ToList();
 			ViewData.Model = osOperators;
-            return View("List");
-        }
+			return View("List");
+		}
 
-        //
-        // GET: /OnSiteOperators/Details/5
+		//
+		// GET: /OnSiteOperators/Details/5
 
-        public ActionResult Details(Guid id)
-        {
+		public ActionResult Details(Guid id)
+		{
 			var osOperator = GetOperatorByID(id);
 			ViewData.Model = osOperator;
 			return View();
-        }
+		}
 
-        //
-        // GET: /OnSiteOperators/Create
+		//
+		// GET: /OnSiteOperators/Create
 
-        public ActionResult Create()
-        {
-            return View();
-        } 
+		public ActionResult Create()
+		{
+			return View();
+		}
 
-        //
-        // POST: /OnSiteOperators/Create
+		//
+		// POST: /OnSiteOperators/Create
 
-        [HttpPost]
-        public ActionResult Create(OnSiteOperator osOperator)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+		[HttpPost]
+		public ActionResult Create(OnSiteOperator osOperator)
+		{
+			try {
+				// TODO: Add insert logic here
 				_context.OnSiteOperators.AddObject(osOperator);
 				_context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+				return RedirectToAction("Index");
+			} catch {
 				return Content("Something went wrong");
-            }
-        }
-        
-        //
-        // GET: /OnSiteOperators/Edit/5
- 
-        public ActionResult Edit(Guid id)
-        {
+			}
+		}
+
+		//
+		// GET: /OnSiteOperators/Edit/5
+
+		public ActionResult Edit(Guid id)
+		{
 			var osOperator = GetOperatorByID(id);
 			ViewData.Model = osOperator;
-            return View();
-        }
+			return View();
+		}
 
-        //
-        // POST: /OnSiteOperators/Edit/5
+		//
+		// POST: /OnSiteOperators/Edit/5
 
-        [HttpPost]
-        public ActionResult Edit(Guid id, OnSiteOperator osOperator)
-        {
-            try
-            {
+		[HttpPost]
+		public ActionResult Edit(Guid id, OnSiteOperator osOperator)
+		{
+			try {
 				var old = GetOperatorByID(id);
 				old.Name = osOperator.Name;
 				_context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+				return RedirectToAction("Index");
+			} catch {
 				return Content("Something went wrong");
-            }
-        }
+			}
+		}
 
-        //
-        // GET: /OnSiteOperators/Delete/5
-        public ActionResult Delete(Guid id)
-        {
+		//
+		// GET: /OnSiteOperators/Delete/5
+		public ActionResult Delete(Guid id)
+		{
 			var osOperator = GetOperatorByID(id);
 			ViewData.Model = osOperator;
-            return View();
-        }
+			return View();
+		}
 
-        //
-        // POST: /OnSiteOperators/Delete/5
+		//
+		// POST: /OnSiteOperators/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(OnSiteOperator osOperator)
-        {
-            try
-            {
-                // TODO: Add delete logic here
+		[HttpPost]
+		public ActionResult Delete(OnSiteOperator osOperator)
+		{
+			try {
+				// TODO: Add delete logic here
 				_context.OnSiteOperators.DeleteObject(GetOperatorByID(osOperator.ID));
 				_context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+				return RedirectToAction("Index");
+			} catch {
 				return Content("Something went wrong");
-            }
-        }
-    }
+			}
+		}
+	}
 }
