@@ -64,6 +64,8 @@
       <DependentUpon>IMSORMModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportPipes.cs" />
+    <Compile Include="SortDirection.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="IMSORMModel.edmx">

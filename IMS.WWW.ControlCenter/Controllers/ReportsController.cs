@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using IMS.DataAccess;
 using IMS.WWW.ControlCenter.Models;
-using System.Web.Helpers;
 namespace IMS.WWW.ControlCenter.Controllers
 {
 	public class ReportsController : Controller
@@ -57,18 +56,10 @@ namespace IMS.WWW.ControlCenter.Controllers
 
 		public ActionResult List(ReportSortOptions sortBy, SortDirection orderBy)
 		{
-			IQueryable<Report> reports;
-			if (sortBy == ReportSortOptions.ByDate) {
-				if (orderBy == SortDirection.Ascending)
-					reports = _context.Reports.OrderBy(report => report.CreateDate);
-				else
-					reports = _context.Reports.OrderByDescending(report => report.CreateDate);
-			} else {
-				if (orderBy == SortDirection.Ascending)
-					reports = _context.Reports.OrderBy(report => report.OnSiteOperator.Name);
-				else
-					reports = _context.Reports.OrderByDescending(report => report.OnSiteOperator.Name);
-			}
+			IQueryable<Report> reports = 
+				sortBy == ReportSortOptions.ByDate
+				? _context.Reports.OrderByOperator(orderBy)
+				: _context.Reports.OrderByDate(orderBy);
 			ViewBag.OrderBy = orderBy;
 			ViewBag.SortBy = sortBy;
 			ViewData.Model = reports;
