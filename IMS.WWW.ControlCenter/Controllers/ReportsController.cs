@@ -54,10 +54,10 @@ namespace IMS.WWW.ControlCenter.Controllers
 				   };
 		}
 
-		public ActionResult List(ReportSortOptions sortBy, SortDirection orderBy)
+		public ActionResult List(ReportSortCriterium sortBy, SortDirection orderBy)
 		{
 			IQueryable<Report> reports = 
-				sortBy == ReportSortOptions.ByDate
+				sortBy == ReportSortCriterium.ByDate
 				? _context.Reports.OrderByOperator(orderBy)
 				: _context.Reports.OrderByDate(orderBy);
 			ViewBag.OrderBy = orderBy;
@@ -68,7 +68,7 @@ namespace IMS.WWW.ControlCenter.Controllers
 
 		public ActionResult Index()
 		{
-			return RedirectToAction("List", new { sortBy = ReportSortOptions.ByDate, orderBy = SortDirection.Ascending });
+			return RedirectToAction("List", new { sortBy = ReportSortCriterium.ByDate, orderBy = SortDirection.Ascending });
 		}
 
 		//

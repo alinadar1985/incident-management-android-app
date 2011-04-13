@@ -2,7 +2,7 @@
 @using IMS.WWW.ControlCenter.Models;
 @{
     ViewBag.Title = "List";
-    var sortBy = (ReportSortOptions)ViewBag.SortBy;
+    var sortBy = (ReportSortCriterium)ViewBag.SortBy;
     var orderBy = (SortDirection)ViewBag.OrderBy;
 }
 
@@ -15,11 +15,11 @@
     <tr>
         <th></th>
         <th>
-            @if (ViewBag.SortBy == ReportSortOptions.ByOnSiteOperator) {
-                @Html.ActionLink("Operator", "List", new { sortBy = ReportSortOptions.ByOnSiteOperator, 
+            @if (ViewBag.SortBy == ReportSortCriterium.ByOnSiteOperator) {
+                @Html.ActionLink("Operator", "List", new { sortBy = ReportSortCriterium.ByOnSiteOperator, 
                                                            orderBy = orderBy.Toggle() })
             } else {
-                @Html.ActionLink("Operator", "List", new { sortBy = ReportSortOptions.ByOnSiteOperator, 
+                @Html.ActionLink("Operator", "List", new { sortBy = ReportSortCriterium.ByOnSiteOperator, 
                                                            orderBy = SortDirection.Ascending })
             }
         </th>
@@ -27,11 +27,11 @@
             Text
         </th>
         <th>
-            @if (ViewBag.SortBy == ReportSortOptions.ByDate) {
-                @Html.ActionLink("Date", "List", new { sortBy = ReportSortOptions.ByDate, 
+            @if (ViewBag.SortBy == ReportSortCriterium.ByDate) {
+                @Html.ActionLink("Date", "List", new { sortBy = ReportSortCriterium.ByDate, 
                                                        orderBy = orderBy.Toggle() })
             } else {
-                @Html.ActionLink("Date", "List", new { sortBy = ReportSortOptions.ByDate,
+                @Html.ActionLink("Date", "List", new { sortBy = ReportSortCriterium.ByDate,
                                                        orderBy = SortDirection.Descending });
             }
         </th>

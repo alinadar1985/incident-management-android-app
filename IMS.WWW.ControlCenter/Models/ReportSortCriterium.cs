@@ -10,7 +10,7 @@ using System.Web.Security;
 
 namespace IMS.WWW.ControlCenter.Models
 {
-	public enum ReportSortOptions
+	public enum ReportSortCriterium
 	{
 		ByOnSiteOperator,
 		ByDate

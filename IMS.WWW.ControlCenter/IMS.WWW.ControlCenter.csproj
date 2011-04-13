@@ -67,7 +67,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\ReportSortOptions.cs" />
+    <Compile Include="Models\ReportSortCriterium.cs" />
     <Compile Include="Models\SortingExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
