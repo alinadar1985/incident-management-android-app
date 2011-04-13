@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<IMS.DataAccess.Report>
-
+@using IMS.WWW.ControlCenter.Models;
 @{
     ViewBag.Title = "List";
+    var sortBy = (ReportSortOptions)ViewBag.SortBy;
+    var orderBy = (SortDirection)ViewBag.OrderBy;
 }
 
 <h2>List</h2>
@@ -13,13 +15,25 @@
     <tr>
         <th></th>
         <th>
-            Created By
+            @if (ViewBag.SortBy == ReportSortOptions.ByOnSiteOperator) {
+                @Html.ActionLink("Operator", "List", new { sortBy = ReportSortOptions.ByOnSiteOperator, 
+                                                           orderBy = orderBy.Toggle() })
+            } else {
+                @Html.ActionLink("Operator", "List", new { sortBy = ReportSortOptions.ByOnSiteOperator, 
+                                                           orderBy = SortDirection.Ascending })
+            }
         </th>
         <th>
             Text
         </th>
         <th>
-            Date
+            @if (ViewBag.SortBy == ReportSortOptions.ByDate) {
+                @Html.ActionLink("Date", "List", new { sortBy = ReportSortOptions.ByDate, 
+                                                       orderBy = orderBy.Toggle() })
+            } else {
+                @Html.ActionLink("Date", "List", new { sortBy = ReportSortOptions.ByDate,
+                                                       orderBy = SortDirection.Descending });
+            }
         </th>
     </tr>
 

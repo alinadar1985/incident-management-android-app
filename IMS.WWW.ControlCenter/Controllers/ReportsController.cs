@@ -4,12 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using IMS.DataAccess;
+using IMS.WWW.ControlCenter.Models;
+using System.Web.Helpers;
 namespace IMS.WWW.ControlCenter.Controllers
 {
-    public class ReportsController : Controller
-    {
-        //
-        // GET: /Reports/
+	public class ReportsController : Controller
+	{
+		//
+		// GET: /Reports/
 
 		private IMSORMModelContainer _context = new IMSORMModelContainer();
 		public ReportsController()
@@ -53,109 +55,118 @@ namespace IMS.WWW.ControlCenter.Controllers
 				   };
 		}
 
-        public ActionResult Index()
-        {
-			var reports = _context.Reports;
+		public ActionResult List(ReportSortOptions sortBy, SortDirection orderBy)
+		{
+			IQueryable<Report> reports;
+			if (sortBy == ReportSortOptions.ByDate) {
+				if (orderBy == SortDirection.Ascending)
+					reports = _context.Reports.OrderBy(report => report.CreateDate);
+				else
+					reports = _context.Reports.OrderByDescending(report => report.CreateDate);
+			} else {
+				if (orderBy == SortDirection.Ascending)
+					reports = _context.Reports.OrderBy(report => report.OnSiteOperator.Name);
+				else
+					reports = _context.Reports.OrderByDescending(report => report.OnSiteOperator.Name);
+			}
+			ViewBag.OrderBy = orderBy;
+			ViewBag.SortBy = sortBy;
 			ViewData.Model = reports;
-            return View("List");
-        }
+			return View();
+		}
 
-        //
-        // GET: /Reports/Details/5
+		public ActionResult Index()
+		{
+			return RedirectToAction("List", new { sortBy = ReportSortOptions.ByDate, orderBy = SortDirection.Ascending });
+		}
 
-        public ActionResult Details(Guid id)
-        {
+		//
+		// GET: /Reports/Details/5
+
+		public ActionResult Details(Guid id)
+		{
 			var report = GetReportById(id);
 			ViewData.Model = report;
-            return View();
-        }
+			return View();
+		}
 
-        //
-        // GET: /Reports/Create
+		//
+		// GET: /Reports/Create
 
-        public ActionResult Create()
-        {
+		public ActionResult Create()
+		{
 			ViewBag.OperatorList = GetOperatorList();
 			ViewData.Model = new Report { CreateDate = DateTime.Now };
-            return View();
-        } 
+			return View();
+		}
 
-        //
-        // POST: /Reports/Create
+		//
+		// POST: /Reports/Create
 
-        [HttpPost]
-        public ActionResult Create(Report report)
-        {
-            try
-            {
+		[HttpPost]
+		public ActionResult Create(Report report)
+		{
+			try {
 				_context.Reports.AddObject(report);
 				_context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+				return RedirectToAction("Index");
+			} catch {
 				return Content("Something went wrong");
-            }
-        }
-        
-        //
-        // GET: /Reports/Edit/5
-		
-        public ActionResult Edit(Guid id)
-        {
+			}
+		}
+
+		//
+		// GET: /Reports/Edit/5
+
+		public ActionResult Edit(Guid id)
+		{
 			var report = GetReportById(id);
 			ViewData.Model = report;
 			ViewBag.OperatorList = GetPreselectedOperatorList(report.OperatorID);
-            return View();
-        }
+			return View();
+		}
 
-        //
-        // POST: /Reports/Edit/5
+		//
+		// POST: /Reports/Edit/5
 
-        [HttpPost]
-        public ActionResult Edit(Report report)
-        {
-            try
-            {
+		[HttpPost]
+		public ActionResult Edit(Report report)
+		{
+			try {
 				var old = GetReportById(report.ID);
 				old.OperatorID = report.OperatorID;
 				old.Text = report.Text;
 				old.CreateDate = report.CreateDate;
 				_context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+				return RedirectToAction("Index");
+			} catch {
 				return Content("Something went wrong");
-            }
-        }
+			}
+		}
 
-        //
-        // GET: /Reports/Delete/5
- 
-        public ActionResult Delete(Guid id)
-        {
+		//
+		// GET: /Reports/Delete/5
+
+		public ActionResult Delete(Guid id)
+		{
 			var report = GetReportById(id);
 			ViewData.Model = report;
-            return View();
-        }
+			return View();
+		}
 
-        //
-        // POST: /Reports/Delete/5
+		//
+		// POST: /Reports/Delete/5
 
-        [HttpPost]
-        public ActionResult Delete(Report report)
-        {
-            try
-            {
+		[HttpPost]
+		public ActionResult Delete(Report report)
+		{
+			try {
 				_context.Reports.DeleteObject(GetReportById(report.ID));
 				_context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            catch
-            {
+				return RedirectToAction("Index");
+			} catch {
 				return Content("Something went wrong");
-            }
-        }
-    }
+			}
+		}
+	}
 }
