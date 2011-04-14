@@ -13,7 +13,6 @@ namespace IMS.WWW.ControlCenter.Models
 				return SortDirection.Descending;
 			else
 				return SortDirection.Ascending;
-
 		}
 	}
 }
