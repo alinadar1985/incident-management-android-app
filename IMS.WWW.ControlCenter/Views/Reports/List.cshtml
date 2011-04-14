@@ -36,6 +36,10 @@
                                                        orderBy = SortDirection.Descending });
             }
         </th>
+        <th>
+            Time
+        </th>
+        
     </tr>
 
 @foreach (var item in Model) {
@@ -46,16 +50,17 @@
             @Html.ActionLink("Delete", "Delete", new { id=item.ID })
         </td>
         <td>
-            @item.OnSiteOperator.Name
+            @Html.ActionLink(item.OnSiteOperator.Name,"Details", new { controller = "OnSiteOperators", id = item.OperatorID })
         </td>
         <td>
             @item.Text
         </td>
         <td>
-            @String.Format("{0:g}", item.CreateDate)
+            @String.Format("{0:yyyy-dd-MM}", item.CreateDate)
+        </td>
+        <td>
+            @String.Format("{0:HH:mm}", item.CreateDate)
         </td>
     </tr>
 }
-
 </table>
-
