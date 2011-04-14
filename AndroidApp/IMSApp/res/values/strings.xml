@@ -4,4 +4,5 @@
     <string name="app_name">Mobile Incident Reporting</string>
     <string name="report_txt_label">Describe the incident</string>
     <string name="report_btn_submit">Submit</string>
+    <string name="opertor_guid">27ac3e4e-a17e-419a-a2e6-68eaa55f1d4f</string>
 </resources>

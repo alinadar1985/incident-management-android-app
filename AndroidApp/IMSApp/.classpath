@@ -3,5 +3,16 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.atom.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.crypto.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.httpclient.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.jaas.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.jackson.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.json.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.net.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.odata.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.rdf.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.xml.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
