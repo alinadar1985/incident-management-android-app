@@ -58,7 +58,7 @@ namespace IMS.WWW.ControlCenter.Controllers
 		{
 			IQueryable<Report> reports = 
 				sortBy == ReportSortCriterium.ByDate
-				? _context.Reports.OrderByOperator(orderBy)
+				? _context.Reports.OrderByOperator(orderBy).ThenByDescending(report=> report.CreateDate)
 				: _context.Reports.OrderByDate(orderBy);
 			ViewBag.OrderBy = orderBy;
 			ViewBag.SortBy = sortBy;
