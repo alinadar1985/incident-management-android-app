@@ -15,7 +15,7 @@
 </fieldset>
 @using (Html.BeginForm()) {
     <p>
-        @Html.HiddenFor(op => op.ID)
+        @Html.HiddenFor(op => op.OperatorID)
         <input type="submit" value="Delete" /> |
         @Html.ActionLink("Back to List", "Index")
     </p>
