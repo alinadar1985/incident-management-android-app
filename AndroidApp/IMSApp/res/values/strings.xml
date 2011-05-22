@@ -5,4 +5,11 @@
     <string name="report_txt_label">Describe the incident</string>
     <string name="report_btn_submit">Submit</string>
     <string name="opertor_guid">27ac3e4e-a17e-419a-a2e6-68eaa55f1d4f</string>
+    <string name="newincidentbutton">Report an incident</string>
+    <string name="ask_for_photo">Do you want to take a Photo to document this Incident?</string>
+    <string name="report_lbl_priority">Priority</string>
+    <string name="report_btn_priority">Medium</string>
+    <string name="report_lbl_description">Description</string>
+    <string name="report_lbl_location">Location</string>
+    <string name="new_waypoint_button">Document Checkpoint</string>
 </resources>

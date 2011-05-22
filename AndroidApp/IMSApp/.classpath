@@ -14,5 +14,6 @@
 	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.rdf.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.ext.xml.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files (x86)/Restlet Framework/Edition Android/2.0.6/lib/org.restlet.jar"/>
+	<classpathentry kind="lib" path="C:/Users/laimer/Documents/Repository/IMS/Dependencies/android/simple-xml/jar/simple-xml-2.5.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
