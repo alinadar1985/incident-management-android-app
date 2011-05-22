@@ -1,5 +1,7 @@
 glob:bin/*
 glob:obj/*
 glob:*.suo
-glob:Dependencies/*
 glob:AndroidApp/.metadata/*
+glob:AndroidApp/IMSApp/.metadata/*
+glob:AndroidApp/testcard.img
+glob:AndroidApp/AndroidApp.zip
