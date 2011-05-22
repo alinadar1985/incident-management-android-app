@@ -22,7 +22,7 @@ namespace IMS.WWW.ControlCenter.Controllers
 
 		private Report GetReportById(Guid id)
 		{
-			return _context.Reports.First(r => r.ID == id);
+			return _context.Reports.First(r => r.ReportID == id);
 		}
 
 		/// <summary>
@@ -34,7 +34,7 @@ namespace IMS.WWW.ControlCenter.Controllers
 			return from op in _context.OnSiteOperators.ToList()
 				   select new SelectListItem {
 					   Text = op.Name,
-					   Value = op.ID.ToString(),
+					   Value = op.OperatorID.ToString(),
 					   Selected = false
 				   };
 		}
@@ -49,8 +49,8 @@ namespace IMS.WWW.ControlCenter.Controllers
 			return from op in _context.OnSiteOperators.ToList()
 				   select new SelectListItem {
 					   Text = op.Name,
-					   Value = op.ID.ToString(),
-					   Selected = op.ID == operatorID
+					   Value = op.OperatorID.ToString(),
+					   Selected = op.OperatorID == operatorID
 				   };
 		}
 
@@ -124,7 +124,7 @@ namespace IMS.WWW.ControlCenter.Controllers
 		public ActionResult Edit(Report report)
 		{
 			try {
-				var old = GetReportById(report.ID);
+				var old = GetReportById(report.ReportID);
 				old.OperatorID = report.OperatorID;
 				old.Text = report.Text;
 				old.CreateDate = report.CreateDate;
@@ -152,7 +152,7 @@ namespace IMS.WWW.ControlCenter.Controllers
 		public ActionResult Delete(Report report)
 		{
 			try {
-				_context.Reports.DeleteObject(GetReportById(report.ID));
+				_context.Reports.DeleteObject(GetReportById(report.ReportID));
 				_context.SaveChanges();
 				return RedirectToAction("Index");
 			} catch {
