@@ -19,6 +19,7 @@ using System.Runtime.Serialization;
 #region EDM-Beziehungsmetadaten
 
 [assembly: EdmRelationshipAttribute("IMSORMModel", "OnSiteOperatorReport", "OnSiteOperator", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IMS.DataAccess.OnSiteOperator), "Report", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IMS.DataAccess.Report), true)]
+[assembly: EdmRelationshipAttribute("IMSORMModel", "ReportPhoto", "Report", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(IMS.DataAccess.Report), "Photo", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(IMS.DataAccess.Photo), true)]
 
 #endregion
 
@@ -101,6 +102,22 @@ namespace IMS.DataAccess
             }
         }
         private ObjectSet<Report> _Reports;
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        public ObjectSet<Photo> Photo
+        {
+            get
+            {
+                if ((_Photo == null))
+                {
+                    _Photo = base.CreateObjectSet<Photo>("Photo");
+                }
+                return _Photo;
+            }
+        }
+        private ObjectSet<Photo> _Photo;
 
         #endregion
         #region AddTo-Methoden
@@ -119,6 +136,14 @@ namespace IMS.DataAccess
         public void AddToReports(Report report)
         {
             base.AddObject("Reports", report);
+        }
+    
+        /// <summary>
+        /// Veraltete Methode zum Hinzufügen eines neuen Objekts zum EntitySet 'Photo'. Verwenden Sie stattdessen die Methode '.Add' der zugeordneten Eigenschaft 'ObjectSet&lt;T&gt;'.
+        /// </summary>
+        public void AddToPhoto(Photo photo)
+        {
+            base.AddObject("Photo", photo);
         }
 
         #endregion
@@ -142,12 +167,12 @@ namespace IMS.DataAccess
         /// <summary>
         /// Erstellt ein neues OnSiteOperator-Objekt.
         /// </summary>
-        /// <param name="id">Anfangswert der Eigenschaft ID.</param>
+        /// <param name="operatorID">Anfangswert der Eigenschaft OperatorID.</param>
         /// <param name="name">Anfangswert der Eigenschaft Name.</param>
-        public static OnSiteOperator CreateOnSiteOperator(global::System.Guid id, global::System.String name)
+        public static OnSiteOperator CreateOnSiteOperator(global::System.Guid operatorID, global::System.String name)
         {
             OnSiteOperator onSiteOperator = new OnSiteOperator();
-            onSiteOperator.ID = id;
+            onSiteOperator.OperatorID = operatorID;
             onSiteOperator.Name = name;
             return onSiteOperator;
         }
@@ -160,27 +185,27 @@ namespace IMS.DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Guid ID
+        public global::System.Guid OperatorID
         {
             get
             {
-                return _ID;
+                return _OperatorID;
             }
             set
             {
-                if (_ID != value)
+                if (_OperatorID != value)
                 {
-                    OnIDChanging(value);
-                    ReportPropertyChanging("ID");
-                    _ID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ID");
-                    OnIDChanged();
+                    OnOperatorIDChanging(value);
+                    ReportPropertyChanging("OperatorID");
+                    _OperatorID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("OperatorID");
+                    OnOperatorIDChanged();
                 }
             }
         }
-        private global::System.Guid _ID;
-        partial void OnIDChanging(global::System.Guid value);
-        partial void OnIDChanged();
+        private global::System.Guid _OperatorID;
+        partial void OnOperatorIDChanging(global::System.Guid value);
+        partial void OnOperatorIDChanged();
     
         /// <summary>
         /// Keine Dokumentation für Metadaten verfügbar.
@@ -238,6 +263,152 @@ namespace IMS.DataAccess
     /// <summary>
     /// Keine Dokumentation für Metadaten verfügbar.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="IMSORMModel", Name="Photo")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Photo : EntityObject
+    {
+        #region Factory-Methode
+    
+        /// <summary>
+        /// Erstellt ein neues Photo-Objekt.
+        /// </summary>
+        /// <param name="contentMd5">Anfangswert der Eigenschaft ContentMd5.</param>
+        /// <param name="reportID">Anfangswert der Eigenschaft ReportID.</param>
+        public static Photo CreatePhoto(global::System.Guid contentMd5, global::System.Guid reportID)
+        {
+            Photo photo = new Photo();
+            photo.ContentMd5 = contentMd5;
+            photo.ReportID = reportID;
+            return photo;
+        }
+
+        #endregion
+        #region Primitive Eigenschaften
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ContentMd5
+        {
+            get
+            {
+                return _ContentMd5;
+            }
+            set
+            {
+                if (_ContentMd5 != value)
+                {
+                    OnContentMd5Changing(value);
+                    ReportPropertyChanging("ContentMd5");
+                    _ContentMd5 = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ContentMd5");
+                    OnContentMd5Changed();
+                }
+            }
+        }
+        private global::System.Guid _ContentMd5;
+        partial void OnContentMd5Changing(global::System.Guid value);
+        partial void OnContentMd5Changed();
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Guid ReportID
+        {
+            get
+            {
+                return _ReportID;
+            }
+            set
+            {
+                OnReportIDChanging(value);
+                ReportPropertyChanging("ReportID");
+                _ReportID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ReportID");
+                OnReportIDChanged();
+            }
+        }
+        private global::System.Guid _ReportID;
+        partial void OnReportIDChanging(global::System.Guid value);
+        partial void OnReportIDChanged();
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Boolean UploadStatus
+        {
+            get
+            {
+                return _UploadStatus;
+            }
+            set
+            {
+                OnUploadStatusChanging(value);
+                ReportPropertyChanging("UploadStatus");
+                _UploadStatus = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("UploadStatus");
+                OnUploadStatusChanged();
+            }
+        }
+        private global::System.Boolean _UploadStatus = false;
+        partial void OnUploadStatusChanging(global::System.Boolean value);
+        partial void OnUploadStatusChanged();
+
+        #endregion
+    
+        #region Navigationseigenschaften
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("IMSORMModel", "ReportPhoto", "Report")]
+        public Report Report
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Report>("IMSORMModel.ReportPhoto", "Report").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Report>("IMSORMModel.ReportPhoto", "Report").Value = value;
+            }
+        }
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Report> ReportReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Report>("IMSORMModel.ReportPhoto", "Report");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Report>("IMSORMModel.ReportPhoto", "Report", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// Keine Dokumentation für Metadaten verfügbar.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="IMSORMModel", Name="Report")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -248,17 +419,19 @@ namespace IMS.DataAccess
         /// <summary>
         /// Erstellt ein neues Report-Objekt.
         /// </summary>
-        /// <param name="id">Anfangswert der Eigenschaft ID.</param>
+        /// <param name="reportID">Anfangswert der Eigenschaft ReportID.</param>
         /// <param name="operatorID">Anfangswert der Eigenschaft OperatorID.</param>
         /// <param name="text">Anfangswert der Eigenschaft Text.</param>
         /// <param name="createDate">Anfangswert der Eigenschaft CreateDate.</param>
-        public static Report CreateReport(global::System.Guid id, global::System.Guid operatorID, global::System.String text, global::System.DateTime createDate)
+        /// <param name="location">Anfangswert der Eigenschaft Location.</param>
+        public static Report CreateReport(global::System.Guid reportID, global::System.Guid operatorID, global::System.String text, global::System.DateTime createDate, global::System.String location)
         {
             Report report = new Report();
-            report.ID = id;
+            report.ReportID = reportID;
             report.OperatorID = operatorID;
             report.Text = text;
             report.CreateDate = createDate;
+            report.Location = location;
             return report;
         }
 
@@ -270,27 +443,27 @@ namespace IMS.DataAccess
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.Guid ID
+        public global::System.Guid ReportID
         {
             get
             {
-                return _ID;
+                return _ReportID;
             }
             set
             {
-                if (_ID != value)
+                if (_ReportID != value)
                 {
-                    OnIDChanging(value);
-                    ReportPropertyChanging("ID");
-                    _ID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ID");
-                    OnIDChanged();
+                    OnReportIDChanging(value);
+                    ReportPropertyChanging("ReportID");
+                    _ReportID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ReportID");
+                    OnReportIDChanged();
                 }
             }
         }
-        private global::System.Guid _ID;
-        partial void OnIDChanging(global::System.Guid value);
-        partial void OnIDChanged();
+        private global::System.Guid _ReportID;
+        partial void OnReportIDChanging(global::System.Guid value);
+        partial void OnReportIDChanged();
     
         /// <summary>
         /// Keine Dokumentation für Metadaten verfügbar.
@@ -363,6 +536,54 @@ namespace IMS.DataAccess
         private global::System.DateTime _CreateDate;
         partial void OnCreateDateChanging(global::System.DateTime value);
         partial void OnCreateDateChanged();
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Priority
+        {
+            get
+            {
+                return _Priority;
+            }
+            set
+            {
+                OnPriorityChanging(value);
+                ReportPropertyChanging("Priority");
+                _Priority = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Priority");
+                OnPriorityChanged();
+            }
+        }
+        private global::System.String _Priority = "Medium";
+        partial void OnPriorityChanging(global::System.String value);
+        partial void OnPriorityChanged();
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String Location
+        {
+            get
+            {
+                return _Location;
+            }
+            set
+            {
+                OnLocationChanging(value);
+                ReportPropertyChanging("Location");
+                _Location = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("Location");
+                OnLocationChanged();
+            }
+        }
+        private global::System.String _Location;
+        partial void OnLocationChanging(global::System.String value);
+        partial void OnLocationChanged();
 
         #endregion
     
@@ -402,6 +623,28 @@ namespace IMS.DataAccess
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<OnSiteOperator>("IMSORMModel.OnSiteOperatorReport", "OnSiteOperator", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("IMSORMModel", "ReportPhoto", "Photo")]
+        public EntityCollection<Photo> Photos
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Photo>("IMSORMModel.ReportPhoto", "Photo");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Photo>("IMSORMModel.ReportPhoto", "Photo", value);
                 }
             }
         }

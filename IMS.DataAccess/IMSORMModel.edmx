@@ -8,36 +8,63 @@
   <EntityContainer Name="IMSORMModelStoreContainer">
     <EntitySet Name="OnSiteOperators" EntityType="IMSORMModel.Store.OnSiteOperators" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Reports" EntityType="IMSORMModel.Store.Reports" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Photo" EntityType="IMSORMModel.Store.Photo" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="OnSiteOperatorReport" Association="IMSORMModel.Store.OnSiteOperatorReport">
       <End Role="OnSiteOperator" EntitySet="OnSiteOperators" />
       <End Role="Report" EntitySet="Reports" />
     </AssociationSet>
+    <AssociationSet Name="ReportPhoto" Association="IMSORMModel.Store.ReportPhoto">
+      <End Role="Report" EntitySet="Reports" />
+      <End Role="Photo" EntitySet="Photo" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="OnSiteOperators">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="OperatorID" />
     </Key>
-    <Property Name="ID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="OperatorID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="Reports">
     <Key>
-      <PropertyRef Name="ID" />
+      <PropertyRef Name="ReportID" />
     </Key>
-    <Property Name="ID" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="OperatorID" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
     <Property Name="CreateDate" Type="datetime" Nullable="false" />
+    <Property Name="Priority" Type="nvarchar" Nullable="false" DefaultValue="Medium" MaxLength="15" />
+    <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="25" />
+  </EntityType>
+  <EntityType Name="Photo">
+    <Key>
+      <PropertyRef Name="ContentMd5" />
+    </Key>
+    <Property Name="ContentMd5" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UploadStatus" Type="bit" Nullable="false" DefaultValue="false" />
   </EntityType>
   <Association Name="OnSiteOperatorReport">
     <End Role="OnSiteOperator" Type="IMSORMModel.Store.OnSiteOperators" Multiplicity="1" />
     <End Role="Report" Type="IMSORMModel.Store.Reports" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="OnSiteOperator">
-        <PropertyRef Name="ID" />
+        <PropertyRef Name="OperatorID" />
       </Principal>
       <Dependent Role="Report">
         <PropertyRef Name="OperatorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ReportPhoto">
+    <End Role="Report" Type="IMSORMModel.Store.Reports" Multiplicity="1" />
+    <End Role="Photo" Type="IMSORMModel.Store.Photo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Report">
+        <PropertyRef Name="ReportID" />
+      </Principal>
+      <Dependent Role="Photo">
+        <PropertyRef Name="ReportID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -52,34 +79,63 @@
             <End Role="OnSiteOperator" EntitySet="OnSiteOperators" />
             <End Role="Report" EntitySet="Reports" />
           </AssociationSet>
+          <EntitySet Name="Photo" EntityType="IMSORMModel.Photo" />
+          <AssociationSet Name="ReportPhoto" Association="IMSORMModel.ReportPhoto">
+            <End Role="Report" EntitySet="Reports" />
+            <End Role="Photo" EntitySet="Photo" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="OnSiteOperator">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="OperatorID" />
           </Key>
-          <Property Type="Guid" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="OperatorID" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <NavigationProperty Name="Reports" Relationship="IMSORMModel.OnSiteOperatorReport" FromRole="OnSiteOperator" ToRole="Report" />
           <Property Type="String" Name="Name" Nullable="false" />
         </EntityType>
         <EntityType Name="Report">
           <Key>
-            <PropertyRef Name="ID" />
+            <PropertyRef Name="ReportID" />
           </Key>
-          <Property Type="Guid" Name="ID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="ReportID" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Type="Guid" Name="OperatorID" Nullable="false" />
           <NavigationProperty Name="OnSiteOperator" Relationship="IMSORMModel.OnSiteOperatorReport" FromRole="Report" ToRole="OnSiteOperator" />
           <Property Type="String" Name="Text" Nullable="false" />
           <Property Type="DateTime" Name="CreateDate" Nullable="false" />
+          <NavigationProperty Name="Photos" Relationship="IMSORMModel.ReportPhoto" FromRole="Report" ToRole="Photo" />
+          <Property Type="String" Name="Priority" Nullable="false" MaxLength="15" DefaultValue="Medium" />
+          <Property Type="String" Name="Location" Nullable="false" MaxLength="25" />
         </EntityType>
         <Association Name="OnSiteOperatorReport">
           <End Type="IMSORMModel.OnSiteOperator" Role="OnSiteOperator" Multiplicity="1" />
           <End Type="IMSORMModel.Report" Role="Report" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OnSiteOperator">
-              <PropertyRef Name="ID" />
+              <PropertyRef Name="OperatorID" />
             </Principal>
             <Dependent Role="Report">
               <PropertyRef Name="OperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="ContentMd5" />
+          </Key>
+          <Property Type="Guid" Name="ContentMd5" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Type="Guid" Name="ReportID" Nullable="false" />
+          <NavigationProperty Name="Report" Relationship="IMSORMModel.ReportPhoto" FromRole="Photo" ToRole="Report" />
+          <Property Type="Boolean" Name="UploadStatus" Nullable="false" DefaultValue="False" />
+        </EntityType>
+        <Association Name="ReportPhoto">
+          <End Type="IMSORMModel.Report" Role="Report" Multiplicity="1" />
+          <End Type="IMSORMModel.Photo" Role="Photo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Report">
+              <PropertyRef Name="ReportID" />
+            </Principal>
+            <Dependent Role="Photo">
+              <PropertyRef Name="ReportID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -92,7 +148,7 @@
     <EntitySetMapping Name="OnSiteOperators">
       <EntityTypeMapping TypeName="IsTypeOf(IMSORMModel.OnSiteOperator)">
         <MappingFragment StoreEntitySet="OnSiteOperators">
-          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
           <ScalarProperty Name="Name" ColumnName="Name" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -100,10 +156,21 @@
     <EntitySetMapping Name="Reports">
       <EntityTypeMapping TypeName="IsTypeOf(IMSORMModel.Report)">
         <MappingFragment StoreEntitySet="Reports">
-          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
           <ScalarProperty Name="OperatorID" ColumnName="OperatorID" />
           <ScalarProperty Name="Text" ColumnName="Text" />
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Priority" ColumnName="Priority" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Photo">
+      <EntityTypeMapping TypeName="IsTypeOf(IMSORMModel.Photo)">
+        <MappingFragment StoreEntitySet="Photo">
+          <ScalarProperty Name="ContentMd5" ColumnName="ContentMd5" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+          <ScalarProperty Name="UploadStatus" ColumnName="UploadStatus" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -127,10 +194,15 @@
     <edmx:Diagrams>
       <Diagram Name="IMSORModel" >
         <EntityTypeShape EntityType="IMSORMModel.OnSiteOperator" Width="1.5" PointX="1.5" PointY="1" Height="1.59568359375" />
-        <EntityTypeShape EntityType="IMSORMModel.Report" Width="1.5" PointX="4.375" PointY="1.125" Height="1.9802864583333339" />
+        <EntityTypeShape EntityType="IMSORMModel.Report" Width="1.5" PointX="4.375" PointY="1.125" Height="2.5571907552083331" />
         <AssociationConnector Association="IMSORMModel.OnSiteOperatorReport">
           <ConnectorPoint PointX="3" PointY="1.860341796875" />
           <ConnectorPoint PointX="4.375" PointY="1.860341796875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="IMSORMModel.Photo" Width="1.5" PointX="7.625" PointY="1.25" Height="1.787985026041667" />
+        <AssociationConnector Association="IMSORMModel.ReportPhoto">
+          <ConnectorPoint PointX="5.875" PointY="2.1439925130208337" />
+          <ConnectorPoint PointX="7.625" PointY="2.1439925130208337" />
         </AssociationConnector>
       </Diagram>
     </edmx:Diagrams>
