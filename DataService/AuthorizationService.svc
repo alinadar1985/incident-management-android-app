@@ -1,0 +1,5 @@
+﻿<%@ ServiceHost Language="C#" 
+                Debug="true" 
+                Service="DataService.AuthorizationService" 
+                CodeBehind="AuthorizationService.svc.cs"   
+                Factory="System.ServiceModel.Activation.WebServiceHostFactory" %>
