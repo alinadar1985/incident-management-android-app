@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="report_priorities">
+    	<item>Low</item>
+    	<item>Medium</item>
+    	<item>High</item>
+    	<item>Critical</item>
+    </string-array>
+</resources>
