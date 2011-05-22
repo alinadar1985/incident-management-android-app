@@ -5,3 +5,4 @@ glob:AndroidApp/.metadata/*
 glob:AndroidApp/IMSApp/.metadata/*
 glob:AndroidApp/testcard.img
 glob:AndroidApp/AndroidApp.zip
+glob:UploadTest/*
