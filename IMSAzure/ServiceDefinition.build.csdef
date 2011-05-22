@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+  **********************************************************************************************
+
+  Diese Datei wurde von einem Tool aus der Projektdatei generiert: ServiceDefinition.csdef
+
+  Änderungen an der Datei können zu nicht ordnungsgemäßem Verhalten führen und gehen verloren, wenn die Datei neu generiert wird.
+
+  **********************************************************************************************
+-->
+<ServiceDefinition name="IMSAzure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceDefinition">
+  <WebRole name="IMS.WWW.ControlCenter">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="ControlCenter" endpointName="ControlCenter" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <Endpoints>
+      <InputEndpoint name="ControlCenter" protocol="http" port="81" />
+    </Endpoints>
+    <Imports>
+      <Import moduleName="Diagnostics" />
+    </Imports>
+    <LocalResources>
+      <LocalStorage name="LocalStorage1" cleanOnRoleRecycle="true" sizeInMB="20" />
+    </LocalResources>
+    <ConfigurationSettings>
+      <Setting name="DataConnectionString" />
+    </ConfigurationSettings>
+  </WebRole>
+  <WebRole name="IMS.Api">
+    <Sites>
+      <Site name="Web">
+        <Bindings>
+          <Binding name="Endpoint1" endpointName="Endpoint1" />
+        </Bindings>
+      </Site>
+    </Sites>
+    <Endpoints>
+      <InputEndpoint name="Endpoint1" protocol="http" port="80" />
+    </Endpoints>
+    <Imports>
+      <Import moduleName="Diagnostics" />
+    </Imports>
+    <ConfigurationSettings>
+      <Setting name="DataConnectionString" />
+    </ConfigurationSettings>
+  </WebRole>
+</ServiceDefinition>
