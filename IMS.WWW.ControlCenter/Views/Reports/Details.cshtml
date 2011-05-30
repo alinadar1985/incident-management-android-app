@@ -8,18 +8,30 @@
 
 <fieldset>
     <legend>Report</legend>
+    
+    <div class="display-label">Priority</div>
+    <span class="display-field priority-@Model.Priority.ToLower()">@Model.Priority</span>
+
+    <div class="display-label">Location</div>
+    <span class="display-field">@Model.Location</span>
 
     <div class="display-label">Operator</div>
-    <div class="display-field">@Model.OnSiteOperator.Name</div>
+    <span class="display-field">@Model.OnSiteOperator.Name</span>
 
     <div class="display-label">Text</div>
-    <div class="display-field">@Model.Text</div>
+    <span class="display-field">@Model.Text</span>
 
     <div class="display-label">Date</div>
-    <div class="display-field">@String.Format("{0:g}", Model.CreateDate)</div>
+    <span class="display-field">@String.Format("{0:g}", Model.CreateDate)</span>
+
+
+    <div class="display-field">
+        <img src="@ViewBag.ImgUrl" />
+    </div>
+    
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.OperatorID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
 
