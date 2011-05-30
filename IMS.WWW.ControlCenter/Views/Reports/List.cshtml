@@ -7,6 +7,16 @@
     var orderBy = (SortDirection)ViewBag.OrderBy;
 }
 
+@helper PriorityCell(String priority) {
+    switch(priority.ToLower().Trim()) {
+        case "low":             <td class="priority-low centered">@priority</td> break;
+        case "medium":          <td class="priority-medium centered">@priority</td> break;
+        case "high":            <td class="priority-high centered">@priority</td> break;
+        case "critical":        <td class="priority-critical centered">@priority</td> break;
+
+    }
+}
+
 <h2>List</h2>
 
 <p>
@@ -17,23 +27,37 @@
         <th></th>
         <th>
             @if (ViewBag.SortBy == ReportSortCriterium.ByOnSiteOperator) {
-                @Html.ActionLink("Operator", "List", new { sortBy = ReportSortCriterium.ByOnSiteOperator, 
-                                                           orderBy = orderBy.Toggle() })
+                @Html.ActionLink("Operator", "List", new {
+                   sortBy = ReportSortCriterium.ByOnSiteOperator,
+                   orderBy = orderBy.Toggle()
+            })
             } else {
-                @Html.ActionLink("Operator", "List", new { sortBy = ReportSortCriterium.ByOnSiteOperator, 
-                                                           orderBy = SortDirection.Ascending })
+                @Html.ActionLink("Operator", "List", new {
+                   sortBy = ReportSortCriterium.ByOnSiteOperator,
+                   orderBy = SortDirection.Ascending
+                })
             }
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Priority
         </th>
         <th>
             Text
         </th>
         <th>
             @if (ViewBag.SortBy == ReportSortCriterium.ByDate) {
-                @Html.ActionLink("Date", "List", new { sortBy = ReportSortCriterium.ByDate, 
-                                                       orderBy = orderBy.Toggle() })
+                @Html.ActionLink("Date", "List", new {
+                   sortBy = ReportSortCriterium.ByDate,
+                   orderBy = orderBy.Toggle()
+            })
             } else {
-                @Html.ActionLink("Date", "List", new { sortBy = ReportSortCriterium.ByDate,
-                                                       orderBy = SortDirection.Descending });
+                @Html.ActionLink("Date", "List", new {
+                   sortBy = ReportSortCriterium.ByDate,
+                   orderBy = SortDirection.Descending
+            });
             }
         </th>
         <th>
@@ -45,13 +69,17 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ReportID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ReportID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ReportID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ReportID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ReportID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ReportID })
+        </td>
+        <td class="centered">
+            @Html.ActionLink(item.OnSiteOperator.Name, "Details", new { controller = "OnSiteOperators", id = item.OperatorID })
         </td>
         <td>
-            @Html.ActionLink(item.OnSiteOperator.Name,"Details", new { controller = "OnSiteOperators", id = item.OperatorID })
+            @item.Location
         </td>
+        @PriorityCell(item.Priority)
         <td>
             @item.Text
         </td>
