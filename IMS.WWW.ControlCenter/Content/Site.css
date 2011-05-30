@@ -101,10 +101,11 @@ page width. Or, you can specify an exact pixel width. */
     font-weight: bold;
     padding: 5px 0;
     margin: 0;
-    color: #fff;
+    color: #5c87b2;
     border: none;
     line-height: 2em;
     font-size: 32px !important;
+	background-color: transparent; 
 }
 
 #main
@@ -257,6 +258,11 @@ div#title
     display:block;
     float:left;
     text-align:left;
+	background-image:url(IMS.png);
+}
+div#title h1
+{
+	visibility:hidden;
 }
 
 #logindisplay
