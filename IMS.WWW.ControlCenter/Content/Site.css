@@ -233,7 +233,13 @@ table th
   padding: 6px 5px;
   text-align: left;
   background-color: #e8eef4; 
-  border: solid 1px #e8eef4;   
+  border: solid 1px #e8eef4;
+  text-align: center;
+}
+
+.centered
+{
+	text-align: center;
 }
 
 /* MISC  
@@ -352,19 +358,25 @@ div#title h1
 
 .priority-low 
 {
-	background-color: Green
+	background-color: #CCFF99;
+	color: Black;
 }
 
 .priority-medium
 {
-	background-color: Yellow
+	background-color: #FFFF5C;
+	color: Black;
 }
 .priority-high
 {
-	background-color: Orange
+	background-color: Orange;
+	color: Black;
+	font-weight: bold;
 }
 
 .priority-critical 
 {
-	background-color:Red
+	background-color: Red;
+	color:White;
+	font-weight: bolder;
 }
