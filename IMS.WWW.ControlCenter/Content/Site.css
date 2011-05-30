@@ -343,3 +343,22 @@ div#title
 {
     width: 6em;
 }
+
+.priority-low 
+{
+	background-color: Green
+}
+
+.priority-medium
+{
+	background-color: Yellow
+}
+.priority-high
+{
+	background-color: Orange
+}
+
+.priority-critical 
+{
+	background-color:Red
+}
