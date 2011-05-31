@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.CameraProfile;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -134,18 +135,17 @@ public class Report extends Activity implements View.OnClickListener {
 		// ensure that /incidents directy exist
 		if (!photoPath.exists()) {
 			boolean success = photoPath.mkdirs();
-			if (!success) {
-				throw new RuntimeException("Could not create Image path!");
-			}
+			if (!success) { throw new RuntimeException("Could not create Image path!"); }
 		}
 		// save camera data in this file
 		File photoFile = new File(photoPath, photoFileName);
 		Uri photoUri = Uri.fromFile(photoFile);
 		Intent captureImage = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		captureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-		captureImage.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 240 * 1024);
+		captureImage.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 50);
 		startActivityForResult(captureImage, TAKE_IMAGE_REQUEST);
 	}
+
 	private TextView getDescriptionTextView() {
 		return (TextView) findViewById(R.id.editTextIncidentDescription);
 	}
@@ -161,5 +161,4 @@ public class Report extends Activity implements View.OnClickListener {
 	private Button getPriorityButton() {
 		return (Button) findViewById(R.id.report_btn_priority);
 	}
-
 }
