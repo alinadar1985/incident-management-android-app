@@ -1,14 +1,13 @@
 package mobile.IMS;
 
 import java.io.File;
-
 import java.util.Date;
 import java.util.UUID;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.CameraProfile;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -152,10 +151,6 @@ public class Report extends Activity implements View.OnClickListener {
 
 	private TextView getLocationTextView() {
 		return (TextView) findViewById(R.id.report_edit_location);
-	}
-
-	private Button getSubmitButton() {
-		return (Button) findViewById(R.id.reportSubmitButton);
 	}
 
 	private Button getPriorityButton() {

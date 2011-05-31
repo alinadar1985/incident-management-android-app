@@ -5,12 +5,10 @@ import static android.os.Environment.getExternalStorageDirectory;
 import java.io.File;
 import java.util.Arrays;
 import java.util.TimerTask;
-import java.util.UUID;
 
 import mobile.IMS.api.ReportUploader;
 import mobile.IMS.util.FileByModifiedComparator;
 import mobile.IMS.util.FileBySuffixFilter;
-
 import android.util.Log;
 
 
@@ -37,11 +35,5 @@ public class ReportUploadTask extends TimerTask {
 				.getInstance(".xml"));
 		Arrays.sort(reportFiles, FileByModifiedComparator.getInstance());
 		return reportFiles.length > 0 ? reportFiles[0] : null;
-	}
-
-	private static UUID getFileUUID(File file) {
-		String fileName = file.getName();
-		String uuidString = fileName.substring(0, fileName.indexOf('.') - 1);
-		return UUID.fromString(uuidString);
 	}
 }

@@ -1,16 +1,15 @@
 package mobile.IMS;
 
+import static android.os.Environment.getExternalStorageDirectory;
+
+import java.io.File;
 import java.util.Arrays;
 import java.util.TimerTask;
-import java.util.UUID;
-import java.io.File;
 
-import android.util.Log;
 import mobile.IMS.api.PhotoUploader;
 import mobile.IMS.util.FileByModifiedComparator;
 import mobile.IMS.util.FileBySuffixFilter;
-
-import static android.os.Environment.*;
+import android.util.Log;
 
 public class PhotoUploadTask extends TimerTask {
 
