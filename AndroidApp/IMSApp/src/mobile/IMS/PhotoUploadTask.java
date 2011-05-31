@@ -22,7 +22,7 @@ public class PhotoUploadTask extends TimerTask {
 		File uploadFile = firstFile();
 		if (uploadFile != null) {
 			try {
-				upload(uploadFile);
+				new PhotoUploader().upload(uploadFile);
 				uploadFile.delete();
 			} catch (Exception e) {
 				Log.w("IMSUPL", "Upload failed", e);
@@ -37,19 +37,5 @@ public class PhotoUploadTask extends TimerTask {
 		// sort by date
 		Arrays.sort(photoFiles, FileByModifiedComparator.getInstance());
 		return photoFiles.length > 0 ? photoFiles[0] : null;
-	}
-
-	private static void upload(File file) throws Exception {
-		UUID reportUUID = getFileUUID(file);
-		PhotoUploader.Upload(file, reportUUID);
-	}
-
-	/**
-	 * Returns the UUID from a filename. 
-	 */
-	private static UUID getFileUUID(File file) {
-		String fileName = file.getName();
-		String uuidString = fileName.substring(0, fileName.indexOf('.') - 1);
-		return UUID.fromString(uuidString);
 	}
 }

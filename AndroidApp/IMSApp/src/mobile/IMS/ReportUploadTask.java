@@ -7,13 +7,12 @@ import java.util.Arrays;
 import java.util.TimerTask;
 import java.util.UUID;
 
+import mobile.IMS.api.ReportUploader;
 import mobile.IMS.util.FileByModifiedComparator;
 import mobile.IMS.util.FileBySuffixFilter;
 
-import android.os.Environment;
 import android.util.Log;
 
-import static mobile.IMS.api.ReportUploader.uploadReport;
 
 public class ReportUploadTask extends TimerTask {
 	private final static File filePath = new File(
@@ -24,7 +23,7 @@ public class ReportUploadTask extends TimerTask {
 		File reportFile = getFirstFile();
 		if (reportFile != null) {
 			try {
-				uploadReport(reportFile);
+				new ReportUploader().upload(reportFile);
 				reportFile.delete();
 			} catch (Exception e) {
 				Log.w("IMSUPL", e);
