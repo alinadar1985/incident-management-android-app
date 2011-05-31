@@ -2,18 +2,11 @@ package mobile.IMS;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.Map;
 
 import mobile.IMS.util.FileByModifiedComparator;
 import mobile.IMS.util.FileBySuffixFilter;
 
 import org.simpleframework.xml.core.Persister;
-import org.simpleframework.xml.strategy.Strategy;
-import org.simpleframework.xml.strategy.Type;
-import org.simpleframework.xml.strategy.Value;
-import org.simpleframework.xml.stream.InputNode;
-import org.simpleframework.xml.stream.NodeMap;
-import org.simpleframework.xml.stream.OutputNode;
 
 import android.os.Environment;
 
