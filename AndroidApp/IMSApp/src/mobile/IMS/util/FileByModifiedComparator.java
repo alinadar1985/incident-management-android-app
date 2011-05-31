@@ -6,16 +6,24 @@ import java.util.Comparator;
 public class FileByModifiedComparator implements Comparator<File> {
 
 	private static FileByModifiedComparator instance = null;
-	private FileByModifiedComparator() {}
+
+	private FileByModifiedComparator() {
+	}
+
 	public static FileByModifiedComparator getInstance() {
-		synchronized (FileByModifiedComparator.class) {
-			if (instance == null) instance = new FileByModifiedComparator();
+		if (instance == null) {
+			synchronized (FileByModifiedComparator.class) {
+				if (instance == null)
+					instance = new FileByModifiedComparator();
+			}
 		}
 		return instance;
 	}
-	
+
 	public int compare(File a, File b) {
-		return (int) (a.lastModified() - b.lastModified());
+		Long lA = Long.valueOf(a.lastModified());
+		Long lB = Long.valueOf(b.lastModified());
+		return lA.compareTo(lB) * -1; // old files to the front of a queue
 	}
 
 }
