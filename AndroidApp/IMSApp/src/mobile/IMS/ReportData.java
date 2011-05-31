@@ -6,11 +6,10 @@ import java.util.Date;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.Order;
-import org.simpleframework.xml.Path;
 import org.simpleframework.xml.Root;
 
-@Root(name = "report")
 @Namespace(reference="http://schemas.datacontract.org/2004/07/IMS.Api")
+@Root(name = "report")
 @Order(elements={"id","operator-id", "description", "priority", "location", "datetime"})
 public class ReportData implements Serializable {
 	private static final long serialVersionUID = 134836923434623428L;
