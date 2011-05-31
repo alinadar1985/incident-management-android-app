@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.Date;
 import java.util.UUID;
 
+import mobile.IMS.api.UploadManager;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -24,6 +26,7 @@ public class Report extends Activity implements View.OnClickListener {
 	public static final int EXTRA_REPORT_UUID = 0xbeef;
 	private UUID incidentUuid = null;
 	public final static String REPORT_UUID = "mobile.IMS.Report.FILL_OUT";
+	private final UploadManager uploadManager = UploadManager.getInstance();
 
 	/** Called when the activity is first created. */
 	@Override
@@ -34,21 +37,7 @@ public class Report extends Activity implements View.OnClickListener {
 		this.incidentUuid = (UUID) getIntent().getExtras().get(REPORT_UUID);
 	}
 
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		switch (requestCode) {
-		case TAKE_IMAGE_REQUEST:
-			switch (resultCode) {
-			case RESULT_OK:
-				Toast.makeText(this, "Image Taken", Toast.LENGTH_SHORT).show();
-				this.setResult(RESULT_OK);
-				this.finish();
-				break;
-			case RESULT_CANCELED:
-				Toast.makeText(this, "No Image taken!", Toast.LENGTH_LONG);
-			}
-		}
-	}
+	
 
 	@Override
 	public void finish() {
@@ -63,7 +52,7 @@ public class Report extends Activity implements View.OnClickListener {
 		report.setUuid(this.incidentUuid.toString());
 		report.setOperatorID("00000000-0000-0000-0000-000000000000");
 		try {
-			ReportPersistence.SaveReportData(report);
+			uploadManager.AddReport(report);
 		} catch (Exception e) {
 			Log.e("IMS", "Could not write Report file", e);
 		}
@@ -89,13 +78,16 @@ public class Report extends Activity implements View.OnClickListener {
 					switch (which) {
 					case DialogInterface.BUTTON_POSITIVE:
 						takePhoto(); // flow continues at onActivityResult
+						break;
 					case DialogInterface.BUTTON_NEUTRAL:
 						Report.this.setResult(RESULT_OK);
 						// User doesn't want to take a photo
 						Report.this.finish();
+						break;
 					case DialogInterface.BUTTON_NEGATIVE:
 						// User canceled
 						Report.this.setResult(RESULT_CANCELED);
+						break;
 					}
 				}
 			};
@@ -143,6 +135,23 @@ public class Report extends Activity implements View.OnClickListener {
 		captureImage.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
 		captureImage.putExtra(MediaStore.EXTRA_SIZE_LIMIT, 50);
 		startActivityForResult(captureImage, TAKE_IMAGE_REQUEST);
+	}
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case TAKE_IMAGE_REQUEST:
+			switch (resultCode) {
+			case RESULT_OK:
+				uploadManager.AddPhoto(this.incidentUuid);
+				Toast.makeText(this, "Image Taken", Toast.LENGTH_SHORT).show();
+				this.setResult(RESULT_OK);
+				this.finish();
+				break;
+			case RESULT_CANCELED:
+				Toast.makeText(this, "No Image taken!", Toast.LENGTH_LONG);
+				break;
+			}
+		}
 	}
 
 	private TextView getDescriptionTextView() {

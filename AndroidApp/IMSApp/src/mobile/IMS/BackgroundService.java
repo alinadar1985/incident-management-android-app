@@ -1,26 +1,60 @@
 package mobile.IMS;
 
-import java.util.Timer;
+import java.io.File;
 
+import mobile.IMS.api.PhotoUploader;
+import mobile.IMS.api.ReportUploader;
+import mobile.IMS.api.UploadManager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 
 public class BackgroundService extends Service {
 
-	private final Timer timer = new Timer(true);
+	
+	private Runnable photoUploadTask = new Runnable() {
+
+		public void run() {
+			UploadManager upload = UploadManager.getInstance();
+			do {
+				File photoFile = upload.topPhotoFile(); // blocking
+				if (photoFile == null) continue;
+				try {
+					new PhotoUploader().upload(photoFile);
+					photoFile.delete();
+				} catch (Exception e) {
+					upload.AddPhoto(photoFile);
+				}
+			} while (true);
+		}
+	};
+
+	private Runnable reportUploadTask = new Runnable() {
+
+		public void run() {
+			UploadManager upload = UploadManager.getInstance();
+			do {
+				File reportDataFile = upload.topReportFile(); // blocking
+				if (reportDataFile==null)continue;
+				try {
+					new ReportUploader().upload(reportDataFile);
+					reportDataFile.delete();
+				} catch (Exception e) {
+					upload.AddReport(reportDataFile);
+				}
+			} while (true);
+		}
+	};
 
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
-
 		return null;
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		timer.schedule(new PhotoUploadTask(), 1000, 1000);
-		timer.schedule(new ReportUploadTask(), 5000, 2000);
-		return START_STICKY;
+		new Thread(reportUploadTask, "Report upload").start();
+		new Thread(photoUploadTask, "Photo upload").start();
+		return super.onStartCommand(intent, flags, startId);
 	}
 }

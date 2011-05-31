@@ -24,7 +24,6 @@ public class Start extends Activity implements View.OnClickListener {
 		setContentView(R.layout.start);
 		Button reportButton = (Button) findViewById(R.id.newincidentreportbutton);
 		reportButton.setOnClickListener(this);
-
 		((Button) findViewById(R.id.new_waypoint_button)).setOnClickListener(this);
 		Intent serviceIntent = new Intent(this, BackgroundService.class);
 		startService(serviceIntent);
@@ -36,6 +35,7 @@ public class Start extends Activity implements View.OnClickListener {
 			Intent reportIntent = new Intent(this, Report.class);
 			reportIntent.putExtra(Report.REPORT_UUID, UUID.randomUUID());
 			startActivity(reportIntent);
+			break;
 		case R.id.new_waypoint_button:
 			AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
 			dialogBuilder
@@ -78,11 +78,13 @@ public class Start extends Activity implements View.OnClickListener {
 								}
 							})
 					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int which) {}
+						public void onClick(DialogInterface dialog, int which) {
+						}
 					})
 					.setCancelable(true)
 					.setTitle("Barcode or Photo?")
 					.show();
+			break;
 		}
 	}
 
@@ -94,6 +96,7 @@ public class Start extends Activity implements View.OnClickListener {
 				String barcode = data.getStringExtra("SCAN_RESULT");
 				Toast.makeText(this, barcode, Toast.LENGTH_LONG).show();
 			}
+			break;
 		}
 
 	}
