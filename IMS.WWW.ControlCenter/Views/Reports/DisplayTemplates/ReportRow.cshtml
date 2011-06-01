@@ -1,0 +1,21 @@
+﻿@model IMS.DataAccess.Report
+<tr class="report-row priority-@Model.Priority.ToLower()">
+    <td class="centered">
+        @Html.ActionLink(Model.OnSiteOperator.Name, "Details", new { controller = "OnSiteOperators", id = Model.OperatorID })
+    </td>
+    <td>
+        @Model.Location
+    </td>
+    <td style="font-weight:normal">
+        @(Model.Text.Length < 40 ? Model.Text : Model.Text.Substring(0,40) + "...")
+    </td>
+    <td>
+        @String.Format("{0:yyyy-dd-MM}", Model.CreateDate)
+    </td>
+    <td>
+        @String.Format("{0:HH:mm}", Model.CreateDate)
+    </td>
+    <td>
+        @Html.ActionLink("details", "Details", new { id = Model.ReportID }, new { @class = "details-link" })
+    </td>
+</tr>
