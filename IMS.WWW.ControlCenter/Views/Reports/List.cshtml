@@ -2,93 +2,61 @@
 @using IMS.WWW.ControlCenter.Models;
 @using ReportSortCriterium = IMS.DataAccess.ReportSortCriterium;
 @{
-    ViewBag.Title = "List";
+    ViewBag.Title = "Reports";
     var sortBy = (ReportSortCriterium)ViewBag.SortBy;
     var orderBy = (SortDirection)ViewBag.OrderBy;
 }
 
-@helper PriorityCell(String priority) {
-    switch(priority.ToLower().Trim()) {
-        case "low":             <td class="priority-low centered">@priority</td> break;
-        case "medium":          <td class="priority-medium centered">@priority</td> break;
-        case "high":            <td class="priority-high centered">@priority</td> break;
-        case "critical":        <td class="priority-critical centered">@priority</td> break;
-
-    }
+@section Imports {
+    <link href="@Url.Content("~/Content/Report.css")" rel="stylesheet" type="text/css" />
+    <script src="@Url.Content("~/Scripts/report.js")" type="text/javascript"></script>
 }
 
-<h2>List</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table>
-    <tr>
-        <th></th>
-        <th>
-            @if (ViewBag.SortBy == ReportSortCriterium.ByOnSiteOperator) {
-                @Html.ActionLink("Operator", "List", new {
-                   sortBy = ReportSortCriterium.ByOnSiteOperator,
-                   orderBy = orderBy.Toggle()
-            })
-            } else {
-                @Html.ActionLink("Operator", "List", new {
-                   sortBy = ReportSortCriterium.ByOnSiteOperator,
-                   orderBy = SortDirection.Ascending
+<table id="report-master">
+    <thead>
+        <tr>
+            <th>
+                @if (ViewBag.SortBy == ReportSortCriterium.ByOnSiteOperator) {
+                    @Html.ActionLink("Operator", "List", new {
+                       sortBy = ReportSortCriterium.ByOnSiteOperator,
+                       orderBy = orderBy.Toggle()
                 })
-            }
-        </th>
-        <th>
-            Location
-        </th>
-        <th>
-            Priority
-        </th>
-        <th>
-            Text
-        </th>
-        <th>
-            @if (ViewBag.SortBy == ReportSortCriterium.ByDate) {
-                @Html.ActionLink("Date", "List", new {
-                   sortBy = ReportSortCriterium.ByDate,
-                   orderBy = orderBy.Toggle()
-            })
-            } else {
-                @Html.ActionLink("Date", "List", new {
-                   sortBy = ReportSortCriterium.ByDate,
-                   orderBy = SortDirection.Descending
-            });
-            }
-        </th>
-        <th>
-            Time
-        </th>
-        
-    </tr>
-
+                } else {
+                    @Html.ActionLink("Operator", "List", new {
+                       sortBy = ReportSortCriterium.ByOnSiteOperator,
+                       orderBy = SortDirection.Ascending
+                    })
+                }
+            </th>
+            <th>
+                Location
+            </th>
+            <th>
+                Text
+            </th>
+            <th>
+                @if (ViewBag.SortBy == ReportSortCriterium.ByDate) {
+                    @Html.ActionLink("Date", "List", new {
+                       sortBy = ReportSortCriterium.ByDate,
+                       orderBy = orderBy.Toggle()
+                })
+                } else {
+                    @Html.ActionLink("Date", "List", new {
+                       sortBy = ReportSortCriterium.ByDate,
+                       orderBy = SortDirection.Descending
+                });
+                }
+            </th>
+            <th>
+                Time
+            </th>
+            <th>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ReportID }) |
-            @Html.ActionLink("Details", "Details", new { id = item.ReportID }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.ReportID })
-        </td>
-        <td class="centered">
-            @Html.ActionLink(item.OnSiteOperator.Name, "Details", new { controller = "OnSiteOperators", id = item.OperatorID })
-        </td>
-        <td>
-            @item.Location
-        </td>
-        @PriorityCell(item.Priority)
-        <td>
-            @item.Text
-        </td>
-        <td>
-            @String.Format("{0:yyyy-dd-MM}", item.CreateDate)
-        </td>
-        <td>
-            @String.Format("{0:HH:mm}", item.CreateDate)
-        </td>
-    </tr>
+    @Html.DisplayFor(_ => item, "ReportRow")
 }
+    </tbody>
 </table>
