@@ -1,0 +1,29 @@
+﻿@model IMS.DataAccess.Report
+@{
+    var photoUriTemplate = "http://618b201c46744a079130d7bc9dce0969.cloudapp.net/PhotoService.svc/photos?reportID={REPORTID}";
+    var photoUri = photoUriTemplate.Replace("{REPORTID}", Model.ReportID.ToString());
+}
+<fieldset>
+    <legend>Report</legend>
+    
+    <div class="display-label">Priority</div>
+    <span class="display-field priority-@Model.Priority.ToLower()">@Model.Priority</span>
+
+    <div class="display-label">Location</div>
+    <span class="display-field">@Model.Location</span>
+
+    <div class="display-label">Operator</div>
+    <span class="display-field">@Model.OnSiteOperator.Name</span>
+
+    <div class="display-label">Text</div>
+    <span class="display-field">@Model.Text</span>
+
+    <div class="display-label">Date</div>
+    <span class="display-field">@String.Format("{0:g}", Model.CreateDate)</span>
+
+
+    <div class="display-field">
+        <img src="@photoUri" alt="Photo attached to the Report" />
+    </div>
+    
+</fieldset>

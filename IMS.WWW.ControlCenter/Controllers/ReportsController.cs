@@ -81,7 +81,10 @@ namespace IMS.WWW.ControlCenter.Controllers
 			ViewBag.ImgUrl = url;
 			var report = GetReportById(id);
 			ViewData.Model = report;
-			return View();
+			if (Request.IsAjaxRequest()) 
+				return PartialView("ReportDetailsPartial");
+			else
+				return View();
 		}
 
 		//
