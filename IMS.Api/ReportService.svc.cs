@@ -24,6 +24,9 @@ namespace IMS.Api
 					
 		public void UploadReport(ReportData report)
 		{
+			if (Context.Reports.Any(rep => rep.ReportID == report.ReportID))
+				WebOperationContext.Current.OutgoingResponse.StatusCode = System.Net.HttpStatusCode.OK;
+
 			Context.Reports.AddObject(new DataAccess.Report {
 				CreateDate = DateTime.Parse(report.DateTime),
 				ReportID = report.ReportID,
