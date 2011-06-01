@@ -18,8 +18,6 @@ namespace IMS.Api
 	public class PhotoService : IPhotoService
 	{
 		private CloudBlobClient _BlobClient { get; set; }
-		private OutgoingWebResponseContext Response { get { return WebOperationContext.Current.OutgoingResponse; } }
-		private IncomingWebRequestContext Request { get { return WebOperationContext.Current.IncomingRequest; } }
 		public PhotoService()
 		{
 			var connectionString =
@@ -30,27 +28,31 @@ namespace IMS.Api
 		}
 
 
-		public void UploadPhoto(Guid reportID, System.IO.Stream file)
+		public void UploadPhoto(string reportID, System.IO.Stream file)
 		{
-			if (Request.ContentLength <= 0)
+			Guid reportGuid = new Guid(reportID);
+			if (WebOperationContext.Current.IncomingRequest.ContentLength <= 0)
 				throw new WebFaultException<string>("No Content-Length Header", HttpStatusCode.BadGateway);
-			if (Request.ContentLength > 5 * 1024 * 1024)
+			if (WebOperationContext.Current.IncomingRequest.ContentLength > 5 * 1024 * 1024)
 				throw new WebFaultException(HttpStatusCode.RequestEntityTooLarge);
 			var blob = _BlobClient.GetContainerReference("photos")
 				.GetBlobReference(reportID.ToString() + ".jpg");
 			blob.UploadFromStream(file);
 			blob.Properties.ContentType = "image/jpeg";
 			blob.SetProperties();
-			Response.SetStatusAsCreated(blob.Uri);
+			WebOperationContext.Current.OutgoingResponse.SetStatusAsCreated(blob.Uri);
+			
 		}
 
 		public Stream GetPhoto(Guid reportID)
 		{
+			// HACK HACK HACK
 			var blob = _BlobClient.GetContainerReference("photos")
 				.GetBlobReference(reportID.ToString() + ".jpg");
 			byte[] image = blob.DownloadByteArray();
-			Response.ContentType = "image/jpeg";
-			Response.ContentLength = image.Length;
+			var response = WebOperationContext.Current.OutgoingResponse;
+			response.ContentType = "image/jpeg";
+			response.ContentLength = image.Length;
 			return new MemoryStream(image, false);
 		}
 	}
