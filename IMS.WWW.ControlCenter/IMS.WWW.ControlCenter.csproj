@@ -112,7 +112,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Report.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\report.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -214,6 +216,12 @@
     <Content Include="Views\Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\DisplayTemplates\ReportRow.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Reports\ReportDetailsPartial.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
