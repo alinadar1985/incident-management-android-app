@@ -114,6 +114,7 @@ page width. Or, you can specify an exact pixel width. */
     background-color: #fff;
     margin-bottom: 30px;
     _height: 1px; /* only IE6 applies CSS properties starting with an underscore */
+    overflow:hidden;
 }
 
 #footer
@@ -356,27 +357,27 @@ div#title h1
     width: 6em;
 }
 
-.priority-low 
+/*								Master-Detail
+-----------------------------------------------------------------------------*/
+div#master-container
 {
-	background-color: #CCFF99;
-	color: Black;
+	width:45%;
+	float:left;
 }
 
-.priority-medium
+div#detail-container 
 {
-	background-color: #FFFF5C;
-	color: Black;
+	width:45%;
+	float:left;
 }
-.priority-high
+div#detail-inner 
 {
-	background-color: Orange;
-	color: Black;
-	font-weight: bold;
+	width: 90%;
+	margin-left: auto; margin-right:auto;
 }
 
-.priority-critical 
+div#detail-inner h3.no-selection-placeholder 
 {
-	background-color: Red;
-	color:White;
-	font-weight: bolder;
+	margin-top:100px;
+	text-align:center;
 }

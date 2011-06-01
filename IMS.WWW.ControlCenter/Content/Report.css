@@ -1,0 +1,26 @@
+﻿
+/*------------------------------------------------------------------Priority */
+.priority-low 
+{
+	background-color: #CCFF99;
+	color: Black;
+}
+
+.priority-medium
+{
+	background-color: #FFFF5C;
+	color: Black;
+}
+.priority-high
+{
+	background-color: Orange;
+	color: Black;
+	font-weight: bold;
+}
+
+.priority-critical 
+{
+	background-color: Red;
+	color:White;
+	font-weight: bolder;
+}
