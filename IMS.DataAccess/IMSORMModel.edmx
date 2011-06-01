@@ -105,6 +105,7 @@
           <NavigationProperty Name="Photos" Relationship="IMSORMModel.ReportPhoto" FromRole="Report" ToRole="Photo" />
           <Property Type="String" Name="Priority" Nullable="false" MaxLength="15" DefaultValue="Medium" />
           <Property Type="String" Name="Location" Nullable="false" MaxLength="25" />
+          <Property Type="DateTime" Name="ReceivedDate" Nullable="false" />
         </EntityType>
         <Association Name="OnSiteOperatorReport">
           <End Type="IMSORMModel.OnSiteOperator" Role="OnSiteOperator" Multiplicity="1" />
@@ -194,7 +195,7 @@
     <edmx:Diagrams>
       <Diagram Name="IMSORModel" >
         <EntityTypeShape EntityType="IMSORMModel.OnSiteOperator" Width="1.5" PointX="1.5" PointY="1" Height="1.59568359375" />
-        <EntityTypeShape EntityType="IMSORMModel.Report" Width="1.5" PointX="4.375" PointY="1.125" Height="2.5571907552083331" />
+        <EntityTypeShape EntityType="IMSORMModel.Report" Width="1.5" PointX="4.375" PointY="1.125" Height="2.7494921875" />
         <AssociationConnector Association="IMSORMModel.OnSiteOperatorReport">
           <ConnectorPoint PointX="3" PointY="1.860341796875" />
           <ConnectorPoint PointX="4.375" PointY="1.860341796875" />

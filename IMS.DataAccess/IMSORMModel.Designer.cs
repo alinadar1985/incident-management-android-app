@@ -424,7 +424,8 @@ namespace IMS.DataAccess
         /// <param name="text">Anfangswert der Eigenschaft Text.</param>
         /// <param name="createDate">Anfangswert der Eigenschaft CreateDate.</param>
         /// <param name="location">Anfangswert der Eigenschaft Location.</param>
-        public static Report CreateReport(global::System.Guid reportID, global::System.Guid operatorID, global::System.String text, global::System.DateTime createDate, global::System.String location)
+        /// <param name="receivedDate">Anfangswert der Eigenschaft ReceivedDate.</param>
+        public static Report CreateReport(global::System.Guid reportID, global::System.Guid operatorID, global::System.String text, global::System.DateTime createDate, global::System.String location, global::System.DateTime receivedDate)
         {
             Report report = new Report();
             report.ReportID = reportID;
@@ -432,6 +433,7 @@ namespace IMS.DataAccess
             report.Text = text;
             report.CreateDate = createDate;
             report.Location = location;
+            report.ReceivedDate = receivedDate;
             return report;
         }
 
@@ -584,6 +586,30 @@ namespace IMS.DataAccess
         private global::System.String _Location;
         partial void OnLocationChanging(global::System.String value);
         partial void OnLocationChanged();
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime ReceivedDate
+        {
+            get
+            {
+                return _ReceivedDate;
+            }
+            set
+            {
+                OnReceivedDateChanging(value);
+                ReportPropertyChanging("ReceivedDate");
+                _ReceivedDate = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ReceivedDate");
+                OnReceivedDateChanged();
+            }
+        }
+        private global::System.DateTime _ReceivedDate;
+        partial void OnReceivedDateChanging(global::System.DateTime value);
+        partial void OnReceivedDateChanged();
 
         #endregion
     
