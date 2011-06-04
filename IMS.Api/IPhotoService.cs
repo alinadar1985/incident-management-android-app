@@ -16,7 +16,7 @@ namespace IMS.Api
 	{
 		[OperationContract]
 		[WebInvoke(Method = "PUT", UriTemplate = "photos?reportID={reportID}")]
-		void UploadPhoto(Guid reportID, Stream file);
+		void UploadPhoto(string reportID, Stream file);
 
 		[WebGet(UriTemplate="photos?reportID={reportID}")]
 		Stream GetPhoto(Guid reportID);
