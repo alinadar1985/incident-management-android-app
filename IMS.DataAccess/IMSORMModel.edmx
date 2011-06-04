@@ -5,70 +5,72 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="IMSORMModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
-  <EntityContainer Name="IMSORMModelStoreContainer">
-    <EntitySet Name="OnSiteOperators" EntityType="IMSORMModel.Store.OnSiteOperators" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Reports" EntityType="IMSORMModel.Store.Reports" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Photo" EntityType="IMSORMModel.Store.Photo" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="OnSiteOperatorReport" Association="IMSORMModel.Store.OnSiteOperatorReport">
-      <End Role="OnSiteOperator" EntitySet="OnSiteOperators" />
-      <End Role="Report" EntitySet="Reports" />
-    </AssociationSet>
-    <AssociationSet Name="ReportPhoto" Association="IMSORMModel.Store.ReportPhoto">
-      <End Role="Report" EntitySet="Reports" />
-      <End Role="Photo" EntitySet="Photo" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="OnSiteOperators">
-    <Key>
-      <PropertyRef Name="OperatorID" />
-    </Key>
-    <Property Name="OperatorID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Reports">
-    <Key>
-      <PropertyRef Name="ReportID" />
-    </Key>
-    <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="OperatorID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="CreateDate" Type="datetime" Nullable="false" />
-    <Property Name="Priority" Type="nvarchar" Nullable="false" DefaultValue="Medium" MaxLength="15" />
-    <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="25" />
-  </EntityType>
-  <EntityType Name="Photo">
-    <Key>
-      <PropertyRef Name="ContentMd5" />
-    </Key>
-    <Property Name="ContentMd5" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="UploadStatus" Type="bit" Nullable="false" DefaultValue="false" />
-  </EntityType>
-  <Association Name="OnSiteOperatorReport">
-    <End Role="OnSiteOperator" Type="IMSORMModel.Store.OnSiteOperators" Multiplicity="1" />
-    <End Role="Report" Type="IMSORMModel.Store.Reports" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="OnSiteOperator">
-        <PropertyRef Name="OperatorID" />
-      </Principal>
-      <Dependent Role="Report">
-        <PropertyRef Name="OperatorID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="ReportPhoto">
-    <End Role="Report" Type="IMSORMModel.Store.Reports" Multiplicity="1" />
-    <End Role="Photo" Type="IMSORMModel.Store.Photo" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Report">
-        <PropertyRef Name="ReportID" />
-      </Principal>
-      <Dependent Role="Photo">
-        <PropertyRef Name="ReportID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+        <EntityContainer Name="IMSORMModelStoreContainer">
+          <EntitySet Name="OnSiteOperators" EntityType="IMSORMModel.Store.OnSiteOperators" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Photo" EntityType="IMSORMModel.Store.Photo" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Reports" EntityType="IMSORMModel.Store.Reports" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_OnSiteOperatorReport" Association="IMSORMModel.Store.FK_OnSiteOperatorReport">
+            <End Role="OnSiteOperators" EntitySet="OnSiteOperators" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ReportPhoto" Association="IMSORMModel.Store.FK_ReportPhoto">
+            <End Role="Reports" EntitySet="Reports" />
+            <End Role="Photo" EntitySet="Photo" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="OnSiteOperators">
+          <Key>
+            <PropertyRef Name="OperatorID" />
+          </Key>
+          <Property Name="OperatorID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Photo">
+          <Key>
+            <PropertyRef Name="ContentMd5" />
+          </Key>
+          <Property Name="ContentMd5" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UploadStatus" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OperatorID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Text" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="Priority" Type="nvarchar" Nullable="false" MaxLength="15" />
+          <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="25" />
+          <Property Name="ReceivedDate" Type="datetime" Nullable="false" />
+          <Property Name="LastModified" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_OnSiteOperatorReport">
+          <End Role="OnSiteOperators" Type="IMSORMModel.Store.OnSiteOperators" Multiplicity="1" />
+          <End Role="Reports" Type="IMSORMModel.Store.Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OnSiteOperators">
+              <PropertyRef Name="OperatorID" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="OperatorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ReportPhoto">
+          <End Role="Reports" Type="IMSORMModel.Store.Reports" Multiplicity="1" />
+          <End Role="Photo" Type="IMSORMModel.Store.Photo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reports">
+              <PropertyRef Name="ReportID" />
+            </Principal>
+            <Dependent Role="Photo">
+              <PropertyRef Name="ReportID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="IMSORMModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
@@ -106,6 +108,7 @@
           <Property Type="String" Name="Priority" Nullable="false" MaxLength="15" DefaultValue="Medium" />
           <Property Type="String" Name="Location" Nullable="false" MaxLength="25" />
           <Property Type="DateTime" Name="ReceivedDate" Nullable="false" />
+          <Property Type="DateTime" Name="LastModified" Nullable="true" />
         </EntityType>
         <Association Name="OnSiteOperatorReport">
           <End Type="IMSORMModel.OnSiteOperator" Role="OnSiteOperator" Multiplicity="1" />
@@ -163,6 +166,8 @@
           <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
           <ScalarProperty Name="Priority" ColumnName="Priority" />
           <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
+          <ScalarProperty Name="LastModified" ColumnName="LastModified" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -189,13 +194,14 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
       </DesignerInfoPropertySet>
     </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram Name="IMSORModel" >
         <EntityTypeShape EntityType="IMSORMModel.OnSiteOperator" Width="1.5" PointX="1.5" PointY="1" Height="1.59568359375" />
-        <EntityTypeShape EntityType="IMSORMModel.Report" Width="1.5" PointX="4.375" PointY="1.125" Height="2.7494921875" />
+        <EntityTypeShape EntityType="IMSORMModel.Report" Width="1.5" PointX="4.375" PointY="1.125" Height="2.9417936197916665" />
         <AssociationConnector Association="IMSORMModel.OnSiteOperatorReport">
           <ConnectorPoint PointX="3" PointY="1.860341796875" />
           <ConnectorPoint PointX="4.375" PointY="1.860341796875" />

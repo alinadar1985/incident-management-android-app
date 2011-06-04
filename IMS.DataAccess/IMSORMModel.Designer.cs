@@ -610,6 +610,30 @@ namespace IMS.DataAccess
         private global::System.DateTime _ReceivedDate;
         partial void OnReceivedDateChanging(global::System.DateTime value);
         partial void OnReceivedDateChanged();
+    
+        /// <summary>
+        /// Keine Dokumentation für Metadaten verfügbar.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> LastModified
+        {
+            get
+            {
+                return _LastModified;
+            }
+            set
+            {
+                OnLastModifiedChanging(value);
+                ReportPropertyChanging("LastModified");
+                _LastModified = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("LastModified");
+                OnLastModifiedChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _LastModified;
+        partial void OnLastModifiedChanging(Nullable<global::System.DateTime> value);
+        partial void OnLastModifiedChanged();
 
         #endregion
     
