@@ -24,3 +24,6 @@
 	color:White;
 	font-weight: bolder;
 }
+#main{
+	min-height: 1200px;
+}
