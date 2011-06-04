@@ -7,3 +7,7 @@ glob:AndroidApp/testcard.img
 glob:AndroidApp/AndroidApp.zip
 glob:UploadTest/*
 glob:AndroidApp.zip
+glob:IMS.WWW.ControlCenter/IMS.WWW.ControlCenter.Publish.xml
+glob:AndroidApp/IMSApp/gen/*
+glob:AndroidApp/IMSApp/.settings/*
+glob:*.edmx.sql
