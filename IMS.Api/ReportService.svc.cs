@@ -29,6 +29,7 @@ namespace IMS.Api
 
 			Context.Reports.AddObject(new DataAccess.Report {
 				CreateDate = DateTime.Parse(report.DateTime),
+				ReceivedDate = DateTime.Now,
 				ReportID = report.ReportID,
 				OperatorID = report.OperatorID,
 				Priority = report.Priority,
