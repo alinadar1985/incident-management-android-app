@@ -24,5 +24,10 @@ namespace IMS.DataAccess
 				? reports.OrderBy(selector)
 				: reports.OrderByDescending(selector);
 		}
+
+		public static IQueryable<Report> CreatedAfter(this IQueryable<Report> reports, DateTime date)
+		{
+			return reports.Where(report => report.ReceivedDate > date);
+		}
 	}
 }
