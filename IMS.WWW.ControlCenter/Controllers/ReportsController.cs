@@ -54,16 +54,26 @@ namespace IMS.WWW.ControlCenter.Controllers
 				   };
 		}
 
-		public ActionResult List(ReportSortCriterium sortBy, SortDirection orderBy)
+	
+
+		public ActionResult List(ReportSortCriterium sortBy = ReportSortCriterium.ByDate, SortDirection orderBy = SortDirection.Ascending, string dateAfter = null)
 		{
 			IQueryable<Report> reports = 
 				sortBy == ReportSortCriterium.ByDate
 				? _context.Reports.OrderByOperator(orderBy).ThenByDescending(report=> report.CreateDate)
 				: _context.Reports.OrderByDate(orderBy);
+			if (dateAfter != null) {
+				DateTime time = DateTime.Parse(dateAfter);
+				reports = reports.CreatedAfter(time);
+			}
 			ViewBag.OrderBy = orderBy;
 			ViewBag.SortBy = sortBy;
 			ViewData.Model = reports;
-			return View();
+			if (Request.IsAjaxRequest()) {
+				return PartialView("ReportTableBodyPartial");
+			} else {
+				return View();
+			}
 		}
 
 		public ActionResult Index()
@@ -163,6 +173,27 @@ namespace IMS.WWW.ControlCenter.Controllers
 				return RedirectToAction("Index");
 			} catch {
 				return Content("Something went wrong");
+			}
+		}
+
+		public ActionResult Poll(Guid lastReceivedReportID)
+		{
+			var lastReceived = _context
+				.Reports
+				.First(report => report.ReportID == lastReceivedReportID);
+			var polled =
+				_context
+				.Reports
+				.OrderBy(report => report.CreateDate)
+				// truly concurrent receiving of reports is unlikely but possible, therfore >=
+				.Where(report => report.CreateDate >= lastReceived.CreateDate)
+				.Skip(1)
+				.ToList();
+			if (polled.Count > 0) {
+				ViewData.Model = polled;
+				return PartialView("ReportTableBodyPartial");
+			} else {
+				return new EmptyResult();
 			}
 		}
 	}
