@@ -1,0 +1,5 @@
+﻿@model IEnumerable<IMS.DataAccess.Report>
+
+@foreach (var item in Model) {
+    @Html.DisplayFor(_ => item, "ReportRow")
+}
