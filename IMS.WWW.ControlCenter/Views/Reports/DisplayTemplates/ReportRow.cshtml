@@ -1,5 +1,16 @@
 ﻿@model IMS.DataAccess.Report
-<tr class="report-row priority-@Model.Priority.ToLower()">
+@{
+    bool highlight = ViewBag.Highlight ?? new Nullable<bool>(false);
+    var classes = new List<string> {
+        "report-row",
+        "priority-"+Model.Priority.ToLower()
+    };
+    if (highlight) {
+        classes.Add("recent");
+    }
+    var cssClasses = String.Join(" ", classes.ToArray());
+}
+<tr class="@cssClasses" id="report-row-@Model.ReportID">
     <td class="centered">
         @Html.ActionLink(Model.OnSiteOperator.Name, "Details", new { controller = "OnSiteOperators", id = Model.OperatorID })
     </td>
@@ -16,6 +27,9 @@
         @String.Format("{0:HH:mm}", Model.CreateDate)
     </td>
     <td>
-        @Html.ActionLink("details", "Details", new { id = Model.ReportID }, new { @class = "details-link" })
+        <button id="@Model.ReportID" class="detail-button ui-icon-document">
+            details
+        </button>
+        @*@Html.ActionLink("details", "Details", new { id = Model.ReportID }, new { @class = "details-link" })*@
     </td>
 </tr>
