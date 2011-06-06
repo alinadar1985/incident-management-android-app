@@ -12,7 +12,12 @@
     <script src="@Url.Content("~/Scripts/report.js")" type="text/javascript"></script>
 }
 
-<table id="report-master">
+@using (Html.BeginForm()) {
+    <div id="date-picker"></div>
+    @Html.Hidden("date", new { id = "date" })
+}
+
+<table id="report-table">
     <thead>
         <tr>
             <th>
@@ -54,7 +59,7 @@
             </th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="report-rows">
 @foreach (var item in Model) {
     @Html.DisplayFor(_ => item, "ReportRow")
 }
