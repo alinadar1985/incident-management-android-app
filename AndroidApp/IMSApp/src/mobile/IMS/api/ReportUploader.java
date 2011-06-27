@@ -5,7 +5,7 @@ import java.io.File;
 public class ReportUploader extends Uploader {
 	@Override
 	protected String getUrl(File uload) {
-		return "http://618b201c46744a079130d7bc9dce0969.cloudapp.net/ReportService.svc/UploadReport";
+		return "http://c88dafde179944689e633062115d4a2b.cloudapp.net/ReportService.svc/UploadReport";
 	}
 	@Override
 	public void upload(File file) throws Exception {

@@ -86,7 +86,7 @@ namespace IMS.WWW.ControlCenter.Controllers
 
 		public ActionResult Details(Guid id)
 		{
-			var baseUrl = "http://618b201c46744a079130d7bc9dce0969.cloudapp.net/PhotoService.svc/photos?reportID={REPORTID}";
+			var baseUrl = "http://c88dafde179944689e633062115d4a2b.cloudapp.net/PhotoService.svc/photos?reportID={REPORTID}";
 			var url = baseUrl.Replace("{REPORTID}", id.ToString());
 			ViewBag.ImgUrl = url;
 			var report = GetReportById(id);

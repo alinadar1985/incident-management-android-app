@@ -3,5 +3,7 @@
   <PropertyGroup>
     <WebRoleSkipLaunchInBrowser>
     </WebRoleSkipLaunchInBrowser>
+    <DeploymentBuildOnly>True</DeploymentBuildOnly>
+    <DeploymentIsExpanded>True</DeploymentIsExpanded>
   </PropertyGroup>
 </Project>

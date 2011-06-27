@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="IMSAzure" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="1" osVersion="*">
-	<Role name="IMS.WWW.ControlCenter">
-		<Instances count="1" />
-		<ConfigurationSettings>
-			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-			<Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
-		</ConfigurationSettings>
-	</Role>
-	<Role name="IMS.Api">
-		<Instances count="1" />
-		<ConfigurationSettings>
-			<Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
-			<Setting name="DataConnectionString" value="UseDevelopmentStorage=true" />
-		</ConfigurationSettings>
-	</Role>
+  <Role name="IMS.WWW.ControlCenter">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="DataConnectionString" value="DefaultEndpointsProtocol=https;AccountName=imstest;AccountKey=CZFrtVeavr+P22htPv1To/WdbHzYA9e4sQTX2/1y+p2lnLRIrsCeSAdd3uhk7bp7DHj4Tyjr8OH7OGOx2QeN0g==" />
+    </ConfigurationSettings>
+  </Role>
+  <Role name="IMS.Api">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
+      <Setting name="DataConnectionString" value="DefaultEndpointsProtocol=https;AccountName=imstest;AccountKey=CZFrtVeavr+P22htPv1To/WdbHzYA9e4sQTX2/1y+p2lnLRIrsCeSAdd3uhk7bp7DHj4Tyjr8OH7OGOx2QeN0g==" />
+    </ConfigurationSettings>
+  </Role>
 </ServiceConfiguration>
