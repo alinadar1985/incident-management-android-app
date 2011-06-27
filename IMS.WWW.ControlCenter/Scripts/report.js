@@ -1,12 +1,5 @@
 ﻿/// <reference path="jquery-1.4.4-vsdoc.js" />
 /// <reference path="jquery-ui.js" />
-var addDatePicker = function () {
-	$("#date-picker").datepicker({
-		altField: '#date',
-		altFormat: 'yy-mm-dd'
-	});
-}
-
 var addDetailLoad = function (elements) {
 	var detailsContainer = $('#detail-inner');
 	var buttons = $('.detail-button');
@@ -40,7 +33,7 @@ var poll = function () {
 	var lastReportID =
 		$('#report-rows :first')
 		.attr('id')
-		.replace('report-row-', ''); // get reportID. 
+		.replace('report-row-', '');
 	var pushReceivedReports = function (data) {
 		var tableBody = $('#report-table tbody');
 		var rows = $(data)
@@ -52,12 +45,11 @@ var poll = function () {
 	$.ajax({
 		url: '/Reports/Poll?lastReceivedReportID=' + lastReportID,
 		accepts: "text/html",
-		success: function (data) { pushReceivedReports(data); startTimer(); }
+		success: pushReceivedReports
 	});
 }
 
 $(document).ready(function () {
 	addDetailLoad($(this));
-	addDatePicker($(this));
 	startTimer();
 });
